@@ -7,6 +7,7 @@
 //
 
 #import "TopPlacesViewController.h"
+#import "FlickrFetcher.h"
 
 @interface TopPlacesViewController ()
 
@@ -17,7 +18,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	NSArray *places = [FlickrFetcher topPlaces];
+    NSLog(@"topPlaces: %@", places);
 }
 
 - (void)viewDidUnload
