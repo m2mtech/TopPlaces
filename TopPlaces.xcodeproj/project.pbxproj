@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B7BA52115BEBC3500185E9F /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */; };
+		5B7BA52515BEBC5800185E9F /* RecentPhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BA52415BEBC5800185E9F /* RecentPhotosTableViewController.m */; };
 		5B8AC09215BEA37900460D33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8AC09115BEA37900460D33 /* UIKit.framework */; };
 		5B8AC09415BEA37900460D33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8AC09315BEA37900460D33 /* Foundation.framework */; };
 		5B8AC09615BEA37900460D33 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8AC09515BEA37900460D33 /* CoreGraphics.framework */; };
@@ -15,11 +17,14 @@
 		5B8AC0A215BEA37900460D33 /* TopPlacesAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AC0A115BEA37900460D33 /* TopPlacesAppDelegate.m */; };
 		5B8AC0A515BEA37A00460D33 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B8AC0A315BEA37A00460D33 /* MainStoryboard_iPhone.storyboard */; };
 		5B8AC0A815BEA37A00460D33 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B8AC0A615BEA37A00460D33 /* MainStoryboard_iPad.storyboard */; };
-		5B8AC0AB15BEA37A00460D33 /* TopPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AC0AA15BEA37A00460D33 /* TopPlacesViewController.m */; };
 		5B8AC0BB15BEA84700460D33 /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8AC0B915BEA84700460D33 /* FlickrFetcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B7BA51F15BEBC3500185E9F /* TopPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesTableViewController.h; sourceTree = "<group>"; };
+		5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTableViewController.m; sourceTree = "<group>"; };
+		5B7BA52315BEBC5800185E9F /* RecentPhotosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotosTableViewController.h; sourceTree = "<group>"; };
+		5B7BA52415BEBC5800185E9F /* RecentPhotosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentPhotosTableViewController.m; sourceTree = "<group>"; };
 		5B8AC08D15BEA37900460D33 /* TopPlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TopPlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B8AC09115BEA37900460D33 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5B8AC09315BEA37900460D33 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -32,8 +37,6 @@
 		5B8AC0A115BEA37900460D33 /* TopPlacesAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopPlacesAppDelegate.m; sourceTree = "<group>"; };
 		5B8AC0A415BEA37A00460D33 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		5B8AC0A715BEA37A00460D33 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		5B8AC0A915BEA37A00460D33 /* TopPlacesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopPlacesViewController.h; sourceTree = "<group>"; };
-		5B8AC0AA15BEA37A00460D33 /* TopPlacesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopPlacesViewController.m; sourceTree = "<group>"; };
 		5B8AC0B815BEA84700460D33 /* FlickrFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrFetcher.h; sourceTree = "<group>"; };
 		5B8AC0B915BEA84700460D33 /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
 		5B8AC0BA15BEA84700460D33 /* FlickrAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
@@ -87,8 +90,10 @@
 				5B8AC0A115BEA37900460D33 /* TopPlacesAppDelegate.m */,
 				5B8AC0A315BEA37A00460D33 /* MainStoryboard_iPhone.storyboard */,
 				5B8AC0A615BEA37A00460D33 /* MainStoryboard_iPad.storyboard */,
-				5B8AC0A915BEA37A00460D33 /* TopPlacesViewController.h */,
-				5B8AC0AA15BEA37A00460D33 /* TopPlacesViewController.m */,
+				5B7BA51F15BEBC3500185E9F /* TopPlacesTableViewController.h */,
+				5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */,
+				5B7BA52315BEBC5800185E9F /* RecentPhotosTableViewController.h */,
+				5B7BA52415BEBC5800185E9F /* RecentPhotosTableViewController.m */,
 				5B8AC0BC15BEA8ED00460D33 /* FlickrFetcher */,
 				5B8AC09815BEA37900460D33 /* Supporting Files */,
 			);
@@ -183,8 +188,9 @@
 			files = (
 				5B8AC09E15BEA37900460D33 /* main.m in Sources */,
 				5B8AC0A215BEA37900460D33 /* TopPlacesAppDelegate.m in Sources */,
-				5B8AC0AB15BEA37A00460D33 /* TopPlacesViewController.m in Sources */,
 				5B8AC0BB15BEA84700460D33 /* FlickrFetcher.m in Sources */,
+				5B7BA52115BEBC3500185E9F /* TopPlacesTableViewController.m in Sources */,
+				5B7BA52515BEBC5800185E9F /* RecentPhotosTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +312,7 @@
 				5B8AC0B015BEA37A00460D33 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
