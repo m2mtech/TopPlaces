@@ -28,6 +28,21 @@
     if (self.tableView.window) [self.tableView reloadData];    
 }
 
+- (NSString *)titleOfPlace:(NSDictionary *)place
+{
+    return [[[place objectForKey:FLICKR_PLACE_NAME] 
+             componentsSeparatedByString:@", "] objectAtIndex:0];
+}
+
+- (NSString *)subtitleOfPlace:(NSDictionary *)place
+{
+    NSArray *nameParts = [[place objectForKey:FLICKR_PLACE_NAME] 
+                          componentsSeparatedByString:@", "];
+    NSRange range;
+    range.location = 1;
+    range.length = [nameParts count] - 1;
+    return [[nameParts subarrayWithRange:range] componentsJoinedByString:@", "];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,7 +56,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     self.places = [FlickrFetcher topPlaces];
     //NSLog(@"%@", self.places);
 }
@@ -77,8 +91,8 @@
     if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
     NSDictionary *place = [self.places objectAtIndex:indexPath.row];
-    cell.textLabel.text = [place objectForKey:FLICKR_PLACE_NAME];
-    cell.detailTextLabel.text = @"";
+    cell.textLabel.text = [self titleOfPlace:place];
+    cell.detailTextLabel.text = [self subtitleOfPlace:place];
     
     return cell;
 }
