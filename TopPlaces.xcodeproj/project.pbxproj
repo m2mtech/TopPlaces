@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B0478B115C07ADE00CAC407 /* TopPhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0478B015C07ADE00CAC407 /* TopPhotosTableViewController.m */; };
+		5B0478B415C07DCC00CAC407 /* CommonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0478B315C07DCC00CAC407 /* CommonTableViewController.m */; };
 		5B7BA52115BEBC3500185E9F /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */; };
 		5B7BA52515BEBC5800185E9F /* RecentPhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BA52415BEBC5800185E9F /* RecentPhotosTableViewController.m */; };
 		5B8AC09215BEA37900460D33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8AC09115BEA37900460D33 /* UIKit.framework */; };
@@ -21,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B0478AF15C07ADE00CAC407 /* TopPhotosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPhotosTableViewController.h; sourceTree = "<group>"; };
+		5B0478B015C07ADE00CAC407 /* TopPhotosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPhotosTableViewController.m; sourceTree = "<group>"; };
+		5B0478B215C07DCC00CAC407 /* CommonTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTableViewController.h; sourceTree = "<group>"; };
+		5B0478B315C07DCC00CAC407 /* CommonTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTableViewController.m; sourceTree = "<group>"; };
 		5B7BA51F15BEBC3500185E9F /* TopPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesTableViewController.h; sourceTree = "<group>"; };
 		5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTableViewController.m; sourceTree = "<group>"; };
 		5B7BA52315BEBC5800185E9F /* RecentPhotosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotosTableViewController.h; sourceTree = "<group>"; };
@@ -90,8 +96,12 @@
 				5B8AC0A115BEA37900460D33 /* TopPlacesAppDelegate.m */,
 				5B8AC0A315BEA37A00460D33 /* MainStoryboard_iPhone.storyboard */,
 				5B8AC0A615BEA37A00460D33 /* MainStoryboard_iPad.storyboard */,
+				5B0478B215C07DCC00CAC407 /* CommonTableViewController.h */,
+				5B0478B315C07DCC00CAC407 /* CommonTableViewController.m */,
 				5B7BA51F15BEBC3500185E9F /* TopPlacesTableViewController.h */,
 				5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */,
+				5B0478AF15C07ADE00CAC407 /* TopPhotosTableViewController.h */,
+				5B0478B015C07ADE00CAC407 /* TopPhotosTableViewController.m */,
 				5B7BA52315BEBC5800185E9F /* RecentPhotosTableViewController.h */,
 				5B7BA52415BEBC5800185E9F /* RecentPhotosTableViewController.m */,
 				5B8AC0BC15BEA8ED00460D33 /* FlickrFetcher */,
@@ -191,6 +201,8 @@
 				5B8AC0BB15BEA84700460D33 /* FlickrFetcher.m in Sources */,
 				5B7BA52115BEBC3500185E9F /* TopPlacesTableViewController.m in Sources */,
 				5B7BA52515BEBC5800185E9F /* RecentPhotosTableViewController.m in Sources */,
+				5B0478B115C07ADE00CAC407 /* TopPhotosTableViewController.m in Sources */,
+				5B0478B415C07DCC00CAC407 /* CommonTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

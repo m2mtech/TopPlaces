@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommonTableViewController.h"
 
-@interface RecentPhotosTableViewController : UITableViewController
+@interface RecentPhotosTableViewController : CommonTableViewController
 
 @end

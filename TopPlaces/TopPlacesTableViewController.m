@@ -7,6 +7,7 @@
 //
 
 #import "TopPlacesTableViewController.h"
+#import "TopPhotosTableViewController.h"
 #import "FlickrFetcher.h"
 
 @interface TopPlacesTableViewController ()
@@ -28,30 +29,7 @@
     if (self.tableView.window) [self.tableView reloadData];    
 }
 
-- (NSString *)titleOfPlace:(NSDictionary *)place
-{
-    return [[[place objectForKey:FLICKR_PLACE_NAME] 
-             componentsSeparatedByString:@", "] objectAtIndex:0];
-}
-
-- (NSString *)subtitleOfPlace:(NSDictionary *)place
-{
-    NSArray *nameParts = [[place objectForKey:FLICKR_PLACE_NAME] 
-                          componentsSeparatedByString:@", "];
-    NSRange range;
-    range.location = 1;
-    range.length = [nameParts count] - 1;
-    return [[nameParts subarrayWithRange:range] componentsJoinedByString:@", "];
-}
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+#pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
@@ -60,16 +38,14 @@
     //NSLog(@"%@", self.places);
 }
 
-- (void)viewDidUnload
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    [super prepareForSegue:segue sender:sender];
+    if ([segue.identifier isEqualToString:@"Show Photos from Place"]) {
+        [segue.destinationViewController setPlace:
+         [self.places objectAtIndex:
+          [self.tableView indexPathForSelectedRow].row]];        
+    }
 }
 
 #pragma mark - Table view data source
@@ -97,56 +73,6 @@
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
-}
 
 @end
