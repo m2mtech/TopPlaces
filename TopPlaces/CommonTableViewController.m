@@ -31,6 +31,22 @@
     return [[nameParts subarrayWithRange:range] componentsJoinedByString:@", "];
 }
 
+- (NSString *)titleOfPhoto:(NSDictionary *)photo
+{
+    NSString *title = [photo objectForKey:FLICKR_PHOTO_TITLE];
+    if ([title length]) return title;
+    title = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    if ([title length]) return title;
+    return UNKNOWN_PHOTO_TITLE;
+}
+
+- (NSString *)subtitleOfPhoto:(NSDictionary *)photo
+{
+    if ([[photo objectForKey:FLICKR_PHOTO_TITLE] length])
+        return [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    return @"";
+}
+
 #pragma mark - View lifecycle
 
 #pragma mark - Table view data source

@@ -33,7 +33,7 @@
     [super viewDidLoad];
     self.navigationItem.title = [self titleOfPlace:self.place];    
     self.photos = [FlickrFetcher photosInPlace:self.place maxResults:NUMBER_OF_PHOTOS];
-    //NSLog(@"%u %@", [self.photos count],self.photos);
+    //NSLog(@"%u %@", [self.photos count], self.photos);
 }
 
 #pragma mark - Table view data source
@@ -45,7 +45,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"%u", [self.photos count]);
     return [self.photos count];
 }
 
@@ -56,8 +55,9 @@
     if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
     NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
-    cell.textLabel.text = [photo objectForKey:FLICKR_PHOTO_TITLE];
-    cell.detailTextLabel.text = @"";
+    //cell.textLabel.text = [photo objectForKey:FLICKR_PHOTO_TITLE];
+    cell.textLabel.text = [self titleOfPhoto:photo];
+    cell.detailTextLabel.text = [self subtitleOfPhoto:photo];
     return cell;
 }
 
