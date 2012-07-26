@@ -7,6 +7,7 @@
 //
 
 #import "TopPhotosTableViewController.h"
+#import "PhotoViewController.h"
 #import "FlickrFetcher.h"
 
 @interface TopPhotosTableViewController ()
@@ -22,7 +23,7 @@
 {
     if (_photos == photos) return;
     _photos = photos;
-    //if (self.tableView.window) 
+    if (self.tableView.window) 
         [self.tableView reloadData];
 }
 
@@ -34,6 +35,16 @@
     self.navigationItem.title = [self titleOfPlace:self.place];    
     self.photos = [FlickrFetcher photosInPlace:self.place maxResults:NUMBER_OF_PHOTOS];
     //NSLog(@"%u %@", [self.photos count], self.photos);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [super prepareForSegue:segue sender:sender];
+    if ([segue.identifier isEqualToString:@"Show Photo"]) {
+        [segue.destinationViewController setPhoto:
+         [self.photos objectAtIndex:
+          [self.tableView indexPathForSelectedRow].row]];        
+    }
 }
 
 #pragma mark - Table view data source
@@ -55,7 +66,6 @@
     if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
     NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
-    //cell.textLabel.text = [photo objectForKey:FLICKR_PHOTO_TITLE];
     cell.textLabel.text = [self titleOfPhoto:photo];
     cell.detailTextLabel.text = [self subtitleOfPhoto:photo];
     return cell;
