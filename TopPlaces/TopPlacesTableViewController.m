@@ -9,6 +9,7 @@
 #import "TopPlacesTableViewController.h"
 #import "TopPhotosTableViewController.h"
 #import "FlickrFetcher.h"
+#import "FlickrData.h"
 
 @interface TopPlacesTableViewController ()
 
@@ -67,8 +68,8 @@
     if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
     NSDictionary *place = [self.places objectAtIndex:indexPath.row];
-    cell.textLabel.text = [self titleOfPlace:place];
-    cell.detailTextLabel.text = [self subtitleOfPlace:place];
+    cell.textLabel.text = [FlickrData titleOfPlace:place];
+    cell.detailTextLabel.text = [FlickrData subtitleOfPlace:place];
     
     return cell;
 }

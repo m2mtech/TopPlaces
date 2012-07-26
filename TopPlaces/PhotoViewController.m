@@ -8,6 +8,7 @@
 
 #import "PhotoViewController.h"
 #import "FlickrFetcher.h"
+#import "FlickrData.h"
 
 @interface PhotoViewController () <UIScrollViewDelegate>
 
@@ -34,6 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.title = [FlickrData titleOfPhoto:self.photo];
     NSURL *url = [FlickrFetcher urlForPhoto:self.photo format:FlickrPhotoFormatLarge];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
     self.imageView.image = image;

@@ -9,6 +9,7 @@
 #import "TopPhotosTableViewController.h"
 #import "PhotoViewController.h"
 #import "FlickrFetcher.h"
+#import "FlickrData.h"
 
 @interface TopPhotosTableViewController ()
 
@@ -32,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = [self titleOfPlace:self.place];    
+    self.navigationItem.title = [FlickrData titleOfPlace:self.place];    
     self.photos = [FlickrFetcher photosInPlace:self.place maxResults:NUMBER_OF_PHOTOS];
     //NSLog(@"%u %@", [self.photos count], self.photos);
 }
@@ -66,8 +67,8 @@
     if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
     NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
-    cell.textLabel.text = [self titleOfPhoto:photo];
-    cell.detailTextLabel.text = [self subtitleOfPhoto:photo];
+    cell.textLabel.text = [FlickrData titleOfPhoto:photo];
+    cell.detailTextLabel.text = [FlickrData subtitleOfPhoto:photo];
     return cell;
 }
 
