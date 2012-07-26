@@ -11,4 +11,6 @@
 
 @interface RecentPhotosTableViewController : CommonTableViewController
 
+@property (nonatomic, strong) NSArray *photos;
+
 @end
