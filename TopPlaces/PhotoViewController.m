@@ -42,9 +42,15 @@
     self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     self.scrollView.delegate = self;
     self.scrollView.zoomScale = 1.0;
-    self.scrollView.maximumZoomScale = 10;
+    self.scrollView.maximumZoomScale = 1.0;    
     self.scrollView.minimumZoomScale = 0.1;
     self.scrollView.contentSize = image.size;
+        
+    double wScale = self.scrollView.bounds.size.width / image.size.width;
+    double hScale = self.scrollView.bounds.size.height / image.size.height;
+    if (wScale > hScale) self.scrollView.zoomScale = wScale;
+    else self.scrollView.zoomScale = hScale;
+
     if (self.imageView.window) [self.imageView setNeedsDisplay];    
 }
 
