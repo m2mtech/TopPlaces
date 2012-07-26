@@ -36,23 +36,27 @@
 {
     [super viewDidLoad];
     self.navigationItem.title = [FlickrData titleOfPhoto:self.photo];
+    self.scrollView.delegate = self;
+    self.scrollView.zoomScale = 1.0;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     NSURL *url = [FlickrFetcher urlForPhoto:self.photo format:FlickrPhotoFormatLarge];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
     self.imageView.image = image;
     self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    self.scrollView.delegate = self;
-    self.scrollView.zoomScale = 1.0;
-    self.scrollView.maximumZoomScale = 1.0;    
+    self.scrollView.maximumZoomScale = 10.0;    
     self.scrollView.minimumZoomScale = 0.1;
     self.scrollView.contentSize = image.size;
-        
+    
     double wScale = self.scrollView.bounds.size.width / image.size.width;
     double hScale = self.scrollView.bounds.size.height / image.size.height;
     if (wScale > hScale) self.scrollView.zoomScale = wScale;
     else self.scrollView.zoomScale = hScale;
-
-    if (self.imageView.window) [self.imageView setNeedsDisplay];    
 }
+
 
 - (void)viewDidUnload
 {
@@ -63,7 +67,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 @end

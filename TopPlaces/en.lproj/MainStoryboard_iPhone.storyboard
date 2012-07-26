@@ -109,7 +109,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="TBg-aw-DfO" kind="push" identifier="Show Photo" id="4qO-zY-vR5"/>
+                                    <segue destination="pDl-0j-Cwq" kind="push" identifier="Show Photo" id="p0s-a1-FAF"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -124,28 +124,35 @@
             <point key="canvasLocation" x="1597" y="39"/>
         </scene>
         <!--Photo View Controller - Photo-->
-        <scene sceneID="2Vi-KG-i7e">
+        <scene sceneID="PHu-qh-2fY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eH7-PG-r2h" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="TBg-aw-DfO" customClass="PhotoViewController" sceneMemberID="viewController">
-                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BoR-6T-JBM">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A4O-Fi-CoV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="pDl-0j-Cwq" customClass="PhotoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Piq-jl-Brb">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="eAe-4m-7xb">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="TI1-RI-cJx">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" id="r1l-Fh-8w6">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
                         </subviews>
-                    </scrollView>
-                    <navigationItem key="navigationItem" title="Photo" id="Rss-B7-Fbs"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Photo" id="xVa-tj-QwW"/>
                     <connections>
-                        <outlet property="imageView" destination="eAe-4m-7xb" id="U7F-YR-FWC"/>
-                        <outlet property="scrollView" destination="BoR-6T-JBM" id="Lxy-X6-a8t"/>
+                        <outlet property="imageView" destination="r1l-Fh-8w6" id="nyc-Cb-Eew"/>
+                        <outlet property="scrollView" destination="TI1-RI-cJx" id="dbw-zb-3eb"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2074" y="39"/>
+            <point key="canvasLocation" x="2074" y="36"/>
         </scene>
         <!--Recent Photos Table View Controller - Recent Photos-->
         <scene sceneID="y3P-H8-ALq">

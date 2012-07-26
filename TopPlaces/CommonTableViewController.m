@@ -16,6 +16,11 @@
 
 #pragma mark - View lifecycle
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
 #pragma mark - Table view data source
 
 #pragma mark - Table view delegate
