@@ -23,6 +23,28 @@
 @synthesize imageView = _imageView;
 @synthesize photo = _photo;
 
+- (void)setPhoto:(NSDictionary *)photo
+{    
+    if (_photo == photo) return;
+    _photo = photo;
+        
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *recents = [[defaults objectForKey:RECENTS_PHOTOS_KEY] 
+                               mutableCopy];
+    if (!recents) recents = [NSMutableArray array];
+    NSUInteger key = [recents indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[photo objectForKey:FLICKR_PHOTO_ID] 
+                isEqualToString:[obj objectForKey:FLICKR_PHOTO_ID]];
+    }];
+    if (key != NSNotFound) [recents removeObjectAtIndex:key];    
+    [recents insertObject:photo atIndex:0];
+    if ([recents count] > NUMBER_OF_RECENT_PHOTOS) 
+        [recents removeLastObject];    
+    [defaults setObject:recents forKey:RECENTS_PHOTOS_KEY];
+    [defaults synchronize];    
+}
+
+
 #pragma mark - Scroll View delegate
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
@@ -37,7 +59,6 @@
     [super viewDidLoad];
     self.navigationItem.title = [FlickrData titleOfPhoto:self.photo];
     self.scrollView.delegate = self;
-    self.scrollView.zoomScale = 1.0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -45,6 +66,7 @@
     [super viewWillAppear:animated];
     NSURL *url = [FlickrFetcher urlForPhoto:self.photo format:FlickrPhotoFormatLarge];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+    self.scrollView.zoomScale = 1.0;
     self.imageView.image = image;
     self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     self.scrollView.maximumZoomScale = 10.0;    

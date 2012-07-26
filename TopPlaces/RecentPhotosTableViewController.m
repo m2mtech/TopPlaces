@@ -7,6 +7,7 @@
 //
 
 #import "RecentPhotosTableViewController.h"
+#import "PhotoViewController.h"
 #import "FlickrData.h"
 
 @interface RecentPhotosTableViewController ()
@@ -21,16 +22,27 @@
 {
     if (_photos == photos) return;
     _photos = photos;
-    [self.tableView reloadData];
+    if (self.tableView.window)
+        [self.tableView reloadData];
 }
 
 #pragma mark - View lifecycle
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.photos = [NSArray array];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.photos = [[defaults objectForKey:RECENTS_PHOTOS_KEY] copy];     
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [super prepareForSegue:segue sender:sender];
+    if ([segue.identifier isEqualToString:@"Show Photo"]) {
+        [segue.destinationViewController setPhoto:
+         [self.photos objectAtIndex:
+          [self.tableView indexPathForSelectedRow].row]];        
+    }
+}
 
 #pragma mark - Table view data source
 

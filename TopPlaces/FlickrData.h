@@ -10,6 +10,8 @@
 #import "FlickrData.h"
 
 #define UNKNOWN_PHOTO_TITLE @"Unknown"
+#define RECENTS_PHOTOS_KEY @"RecentWatchedPhotosKey"
+#define NUMBER_OF_RECENT_PHOTOS 20
 
 @interface FlickrData : NSObject
 
