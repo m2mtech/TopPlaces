@@ -13,11 +13,35 @@
 
 @interface TopPlacesTableViewController ()
 
+@property (nonatomic, strong) NSDictionary *placesByCountry;
+@property (nonatomic, strong) NSArray *countries;
+
 @end
 
 @implementation TopPlacesTableViewController
 
 @synthesize places = _places;
+@synthesize placesByCountry = _placesByCountry;
+@synthesize countries = _countries;
+
+- (void)updatePlacesByCountry
+{
+    NSMutableDictionary *placesByCountry = [NSMutableDictionary dictionary];
+    for (NSDictionary *place in self.places) {
+        NSString *country = [FlickrData countryOfPlace:place];
+        NSMutableArray *places = [placesByCountry objectForKey:country];
+        if (!places) {
+            places = [NSMutableArray array];
+            [placesByCountry setObject:places forKey:country];
+        }
+        [places addObject:place];
+    }
+    self.placesByCountry = placesByCountry;
+    NSArray *countries = [placesByCountry allKeys];
+    self.countries = [countries sortedArrayUsingComparator:^(id a, id b) {
+        return [a compare:b options:NSCaseInsensitiveSearch];
+    }];
+}
 
 - (void)setPlaces:(NSArray *)places
 {
@@ -27,6 +51,7 @@
         NSString *string2 = [obj2 objectForKey:FLICKR_PLACE_NAME];
         return [string1 localizedCompare:string2];                
     }];
+    [self updatePlacesByCountry];
     [self.tableView reloadData];    
 }
 
@@ -43,9 +68,11 @@
 {
     [super prepareForSegue:segue sender:sender];
     if ([segue.identifier isEqualToString:@"Show Photos from Place"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         [segue.destinationViewController setPlace:
-         [self.places objectAtIndex:
-          [self.tableView indexPathForSelectedRow].row]];        
+         [[self.placesByCountry objectForKey:
+           [self.countries objectAtIndex:indexPath.section]
+           ] objectAtIndex:indexPath.row]];
     }
 }
 
@@ -53,21 +80,31 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [self.countries count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView 
+titleForHeaderInSection:(NSInteger)section
+{
+    return [self.countries objectAtIndex:section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.places count];
+    return [[self.placesByCountry objectForKey:
+             [self.countries objectAtIndex:section]] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Top Places Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                             reuseIdentifier:CellIdentifier];
     
-    NSDictionary *place = [self.places objectAtIndex:indexPath.row];
+    NSDictionary *place = [[self.placesByCountry objectForKey:
+                            [self.countries objectAtIndex:indexPath.section]
+                            ] objectAtIndex:indexPath.row];
     cell.textLabel.text = [FlickrData titleOfPlace:place];
     cell.detailTextLabel.text = [FlickrData subtitleOfPlace:place];
     

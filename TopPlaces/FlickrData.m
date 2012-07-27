@@ -27,6 +27,12 @@
     return [[nameParts subarrayWithRange:range] componentsJoinedByString:@", "];
 }
 
++ (NSString *)countryOfPlace:(NSDictionary *)place
+{
+    return [[[place objectForKey:FLICKR_PLACE_NAME] 
+             componentsSeparatedByString:@", "] lastObject];    
+}
+
 + (NSString *)titleOfPhoto:(NSDictionary *)photo
 {
     NSString *title = [photo objectForKey:FLICKR_PHOTO_TITLE];

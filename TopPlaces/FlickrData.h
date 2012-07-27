@@ -17,6 +17,9 @@
 
 + (NSString *)titleOfPlace:(NSDictionary *)place;
 + (NSString *)subtitleOfPlace:(NSDictionary *)place;
+
++ (NSString *)countryOfPlace:(NSDictionary *)place;
+
 + (NSString *)titleOfPhoto:(NSDictionary *)photo; 
 + (NSString *)subtitleOfPhoto:(NSDictionary *)photo; 
 
