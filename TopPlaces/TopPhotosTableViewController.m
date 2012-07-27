@@ -24,8 +24,7 @@
 {
     if (_photos == photos) return;
     _photos = photos;
-    if (self.tableView.window) 
-        [self.tableView reloadData];
+    [self.tableView reloadData];
 }
 
 #pragma mark - View lifecycle
@@ -73,5 +72,12 @@
 }
 
 #pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id vc = [self.splitViewController.viewControllers lastObject];
+    if ([vc isKindOfClass:[PhotoViewController class]]) 
+        [vc setPhoto:[self.photos objectAtIndex:indexPath.row]];
+}
 
 @end

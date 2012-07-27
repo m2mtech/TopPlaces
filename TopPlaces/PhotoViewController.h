@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SplitViewBarButtonItemPresenter.h"
 
-@interface PhotoViewController : UIViewController
+@interface PhotoViewController : UIViewController <SplitViewBarButtonItemPresenter>
 
 @property (nonatomic, strong) NSDictionary *photo;
 

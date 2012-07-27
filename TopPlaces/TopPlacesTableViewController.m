@@ -27,7 +27,7 @@
         NSString *string2 = [obj2 objectForKey:FLICKR_PLACE_NAME];
         return [string1 localizedCompare:string2];                
     }];
-    if (self.tableView.window) [self.tableView reloadData];    
+    [self.tableView reloadData];    
 }
 
 #pragma mark - View lifecycle
