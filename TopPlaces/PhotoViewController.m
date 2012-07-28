@@ -38,20 +38,21 @@
     self.navigationItem.title = title;
     self.toolbarTitle.title = title;
     if (self.imageView.image) self.imageView.alpha = 0.5;
-    [self.spinner startAnimating];    
+    if (self.photo) [self.spinner startAnimating];
+    NSDictionary *photo = [self.photo copy];
     dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
     dispatch_async(queue, ^{
-        //NSLog(@"start loading image: %@", title);
         FlickrCache *cache = [FlickrCache cacheFor:@"photos"];
-        NSURL *url = [cache urlForCachedPhoto:self.photo 
+        NSURL *url = [cache urlForCachedPhoto:photo 
                                        format:FlickrPhotoFormatLarge];
-        if (!url) url = [FlickrFetcher urlForPhoto:self.photo 
+        if (!url) url = [FlickrFetcher urlForPhoto:photo 
                                             format:FlickrPhotoFormatLarge];
         NSData *data = [NSData dataWithContentsOfURL:url];
-        //[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:5]];
-        //NSLog(@"done loading image data: %@", title);
-        [cache cacheData:data ofPhoto:self.photo format:FlickrPhotoFormatLarge];
-        if (self.imageView.window) dispatch_async(dispatch_get_main_queue(), ^{
+        [cache cacheData:data ofPhoto:photo format:FlickrPhotoFormatLarge];
+        if (self.imageView.window && 
+            [[self.photo objectForKey:FLICKR_PHOTO_ID] 
+             isEqualToString:[photo objectForKey:FLICKR_PHOTO_ID]]) 
+            dispatch_async(dispatch_get_main_queue(), ^{
             UIImage *image = [UIImage imageWithData:data];        
             self.scrollView.zoomScale = 1.0;
             self.imageView.alpha = 1;
@@ -66,7 +67,6 @@
             else self.scrollView.zoomScale = hScale;
             [self.spinner stopAnimating];
             [self.imageView setNeedsDisplay];
-            //NSLog(@"finished loading image: %@", title);
         });
     });
     dispatch_release(queue);
@@ -167,6 +167,12 @@
 {
     [super viewWillAppear:animated];
     [self loadPhoto];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.imageView.image = nil;
 }
 
 - (void)viewDidUnload
