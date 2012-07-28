@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FlickrData.h"
 
 #define UNKNOWN_PHOTO_TITLE @"Unknown"
 #define RECENTS_PHOTOS_KEY @"RecentWatchedPhotosKey"

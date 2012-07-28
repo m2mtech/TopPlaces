@@ -9,6 +9,7 @@
 #import "PhotoViewController.h"
 #import "FlickrFetcher.h"
 #import "FlickrData.h"
+#import "FlickrCache.h"
 
 @interface PhotoViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
 
@@ -41,10 +42,15 @@
     dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
     dispatch_async(queue, ^{
         //NSLog(@"start loading image: %@", title);
-        NSURL *url = [FlickrFetcher urlForPhoto:self.photo format:FlickrPhotoFormatLarge];
+        FlickrCache *cache = [FlickrCache cacheFor:@"photos"];
+        NSURL *url = [cache urlForCachedPhoto:self.photo 
+                                       format:FlickrPhotoFormatLarge];
+        if (!url) url = [FlickrFetcher urlForPhoto:self.photo 
+                                            format:FlickrPhotoFormatLarge];
         NSData *data = [NSData dataWithContentsOfURL:url];
         //[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:5]];
         //NSLog(@"done loading image data: %@", title);
+        [cache cacheData:data ofPhoto:self.photo format:FlickrPhotoFormatLarge];
         if (self.imageView.window) dispatch_async(dispatch_get_main_queue(), ^{
             UIImage *image = [UIImage imageWithData:data];        
             self.scrollView.zoomScale = 1.0;
