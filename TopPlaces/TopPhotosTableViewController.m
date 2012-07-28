@@ -32,6 +32,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.spinner startAnimating];
     NSString *title = [FlickrData titleOfPlace:self.place];
     self.navigationItem.title = title;    
     dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
@@ -40,6 +41,7 @@
         NSArray *photos = [FlickrFetcher photosInPlace:self.place maxResults:NUMBER_OF_PHOTOS];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.photos = photos;
+            [self.spinner stopAnimating];
             //NSLog(@"%u %@", [self.photos count], self.photos);
             //NSLog(@"finished loading photosInPlace: %@", title);
         });

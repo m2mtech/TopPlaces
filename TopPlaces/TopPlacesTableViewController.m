@@ -63,9 +63,11 @@
     dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
     dispatch_async(queue, ^{
         //NSLog(@"start loading topPlaces");
+        [self.spinner startAnimating];
         NSArray *places = [FlickrFetcher topPlaces];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.places = places;
+            [self.spinner stopAnimating];
             //NSLog(@"%@", self.places);
             //NSLog(@"finished loading topPlaces");
         });

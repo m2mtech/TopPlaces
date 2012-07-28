@@ -14,7 +14,17 @@
 
 @implementation CommonTableViewController
 
+@synthesize spinner = _spinner;
+
 #pragma mark - View lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.spinner = [[UIActivityIndicatorView alloc] 
+                    initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.spinner];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

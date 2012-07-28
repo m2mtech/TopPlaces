@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarTitle;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
@@ -25,6 +26,7 @@
 @synthesize imageView = _imageView;
 @synthesize toolbar = _toolbar;
 @synthesize toolbarTitle = _toolbarTitle;
+@synthesize spinner = _spinner;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 @synthesize photo = _photo;
 
@@ -34,7 +36,8 @@
     if (self.photo) title = [FlickrData titleOfPhoto:self.photo];
     self.navigationItem.title = title;
     self.toolbarTitle.title = title;
-    
+    if (self.imageView.image) self.imageView.alpha = 0.5;
+    [self.spinner startAnimating];    
     dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
     dispatch_async(queue, ^{
         //NSLog(@"start loading image: %@", title);
@@ -45,6 +48,7 @@
         if (self.imageView.window) dispatch_async(dispatch_get_main_queue(), ^{
             UIImage *image = [UIImage imageWithData:data];        
             self.scrollView.zoomScale = 1.0;
+            self.imageView.alpha = 1;
             self.imageView.image = image;
             self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
             self.scrollView.maximumZoomScale = 10.0;    
@@ -54,6 +58,7 @@
             double hScale = self.scrollView.bounds.size.height / image.size.height;
             if (wScale > hScale) self.scrollView.zoomScale = wScale;
             else self.scrollView.zoomScale = hScale;
+            [self.spinner stopAnimating];
             [self.imageView setNeedsDisplay];
             //NSLog(@"finished loading image: %@", title);
         });
@@ -164,6 +169,7 @@
     [self setScrollView:nil];
     [self setToolbar:nil];
     [self setToolbarTitle:nil];
+    [self setSpinner:nil];
     [super viewDidUnload];
 }
 

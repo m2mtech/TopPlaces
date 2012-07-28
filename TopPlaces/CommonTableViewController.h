@@ -10,4 +10,6 @@
 
 @interface CommonTableViewController : UITableViewController
 
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+
 @end

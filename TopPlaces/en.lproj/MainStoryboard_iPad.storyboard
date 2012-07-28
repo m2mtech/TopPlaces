@@ -153,8 +153,14 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" id="RGr-DD-iOz">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="960"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </imageView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="wbh-cD-o0s">
+                                        <rect key="frame" x="366" y="461" width="37" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </scrollView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="O6i-Ev-dqu">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
@@ -173,6 +179,7 @@
                     <connections>
                         <outlet property="imageView" destination="RGr-DD-iOz" id="vXy-OH-tfn"/>
                         <outlet property="scrollView" destination="Tf7-t1-rVg" id="emU-te-hiA"/>
+                        <outlet property="spinner" destination="wbh-cD-o0s" id="xkm-mp-7Df"/>
                         <outlet property="toolbar" destination="O6i-Ev-dqu" id="bHD-un-ffo"/>
                         <outlet property="toolbarTitle" destination="XxB-Ey-8HT" id="vPM-ne-c0C"/>
                     </connections>
@@ -277,6 +284,7 @@
             <relationships>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
                 <relationship kind="outlet" name="toolbarTitle" candidateClass="UIBarButtonItem"/>
             </relationships>
