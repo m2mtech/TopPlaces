@@ -34,21 +34,31 @@
     if (self.photo) title = [FlickrData titleOfPhoto:self.photo];
     self.navigationItem.title = title;
     self.toolbarTitle.title = title;
-    NSURL *url = [FlickrFetcher urlForPhoto:self.photo format:FlickrPhotoFormatLarge];
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-    self.scrollView.zoomScale = 1.0;
-    self.imageView.image = image;
-    self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    self.scrollView.maximumZoomScale = 10.0;    
-    self.scrollView.minimumZoomScale = 0.1;
-    self.scrollView.contentSize = image.size;
     
-    double wScale = self.scrollView.bounds.size.width / image.size.width;
-    double hScale = self.scrollView.bounds.size.height / image.size.height;
-    if (wScale > hScale) self.scrollView.zoomScale = wScale;
-    else self.scrollView.zoomScale = hScale;
-    
-    [self.imageView setNeedsDisplay];
+    dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
+    dispatch_async(queue, ^{
+        //NSLog(@"start loading image: %@", title);
+        NSURL *url = [FlickrFetcher urlForPhoto:self.photo format:FlickrPhotoFormatLarge];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        //[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:5]];
+        //NSLog(@"done loading image data: %@", title);
+        if (self.imageView.window) dispatch_async(dispatch_get_main_queue(), ^{
+            UIImage *image = [UIImage imageWithData:data];        
+            self.scrollView.zoomScale = 1.0;
+            self.imageView.image = image;
+            self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+            self.scrollView.maximumZoomScale = 10.0;    
+            self.scrollView.minimumZoomScale = 0.1;
+            self.scrollView.contentSize = image.size;
+            double wScale = self.scrollView.bounds.size.width / image.size.width;
+            double hScale = self.scrollView.bounds.size.height / image.size.height;
+            if (wScale > hScale) self.scrollView.zoomScale = wScale;
+            else self.scrollView.zoomScale = hScale;
+            [self.imageView setNeedsDisplay];
+            //NSLog(@"finished loading image: %@", title);
+        });
+    });
+    dispatch_release(queue);
 }
 
 - (void)setPhoto:(NSDictionary *)photo

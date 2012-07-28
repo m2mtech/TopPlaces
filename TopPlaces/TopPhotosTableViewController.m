@@ -24,17 +24,27 @@
 {
     if (_photos == photos) return;
     _photos = photos;
-    [self.tableView reloadData];
+    if (self.tableView.window) [self.tableView reloadData];
 }
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    self.navigationItem.title = [FlickrData titleOfPlace:self.place];    
-    self.photos = [FlickrFetcher photosInPlace:self.place maxResults:NUMBER_OF_PHOTOS];
-    //NSLog(@"%u %@", [self.photos count], self.photos);
+    [super viewWillAppear:animated];
+    NSString *title = [FlickrData titleOfPlace:self.place];
+    self.navigationItem.title = title;    
+    dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
+    dispatch_async(queue, ^{
+        //NSLog(@"start loading photosInPlace: %@", title);
+        NSArray *photos = [FlickrFetcher photosInPlace:self.place maxResults:NUMBER_OF_PHOTOS];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.photos = photos;
+            //NSLog(@"%u %@", [self.photos count], self.photos);
+            //NSLog(@"finished loading photosInPlace: %@", title);
+        });
+    });
+    dispatch_release(queue);
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

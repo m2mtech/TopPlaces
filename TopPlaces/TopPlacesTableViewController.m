@@ -52,16 +52,25 @@
         return [string1 localizedCompare:string2];                
     }];
     [self updatePlacesByCountry];
-    [self.tableView reloadData];    
+    if (self.tableView.window) [self.tableView reloadData];    
 }
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    self.places = [FlickrFetcher topPlaces];
-    //NSLog(@"%@", self.places);
+    [super viewWillAppear:animated];
+    dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
+    dispatch_async(queue, ^{
+        //NSLog(@"start loading topPlaces");
+        NSArray *places = [FlickrFetcher topPlaces];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.places = places;
+            //NSLog(@"%@", self.places);
+            //NSLog(@"finished loading topPlaces");
+        });
+    });
+    dispatch_release(queue);
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
