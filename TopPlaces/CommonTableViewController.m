@@ -84,11 +84,41 @@
         _mapView.autoresizingMask = self.tableView.autoresizingMask;
         _mapView.delegate = self;
         [self.tableView addSubview:_mapView];
+        
+        NSArray *controllArray = [NSArray arrayWithObjects:@"Normal", @"Satellite", @"Hybrid", nil];
+        UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:controllArray];
+        CGPoint center = _mapView.center;
+        center.y = _mapView.bounds.origin.y + _mapView.bounds.size.height - segControl.frame.size.height / 2 - 10;
+        segControl.center = center;
+        segControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+        segControl.selectedSegmentIndex = 0;
+        [segControl addTarget:self action:@selector(changeMapType:) forControlEvents:UIControlEventValueChanged];
+        
+        [_mapView addSubview:segControl];
     }
     return _mapView;
 }
 
 #pragma mark - Actions
+
+- (void) changeMapType:(id)sender{
+    UISegmentedControl *segControl = (UISegmentedControl *)sender;
+    switch ([segControl selectedSegmentIndex]) {
+        case 0:
+            self.mapView.mapType = MKMapTypeStandard;
+            break;
+        case 1:
+            self.mapView.mapType = MKMapTypeSatellite;
+            break;
+        case 2:
+            self.mapView.mapType = MKMapTypeHybrid;
+            break;            
+        default:
+            self.mapView.mapType = MKMapTypeStandard;
+            break;
+    }
+    
+}
 
 - (void)startSpinner
 {
