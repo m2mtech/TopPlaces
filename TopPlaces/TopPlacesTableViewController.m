@@ -10,6 +10,7 @@
 #import "TopPhotosTableViewController.h"
 #import "FlickrFetcher.h"
 #import "FlickrData.h"
+#import "FlickrAnnotation.h"
 
 @interface TopPlacesTableViewController ()
 
@@ -52,7 +53,8 @@
         return [string1 localizedCompare:string2];                
     }];
     [self updatePlacesByCountry];
-    if (self.tableView.window) [self.tableView reloadData];    
+    if (self.tableView.window) [self.tableView reloadData];
+    self.data = _places;
 }
 
 #pragma mark - View lifecycle
@@ -63,11 +65,11 @@
     dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
     dispatch_async(queue, ^{
         //NSLog(@"start loading topPlaces");
-        [self.spinner startAnimating];
+        [self startSpinner];
         NSArray *places = [FlickrFetcher topPlaces];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.places = places;
-            [self.spinner stopAnimating];
+            [self stopSpinner];
             //NSLog(@"%@", self.places);
             //NSLog(@"finished loading topPlaces");
         });
@@ -79,11 +81,15 @@
 {
     [super prepareForSegue:segue sender:sender];
     if ([segue.identifier isEqualToString:@"Show Photos from Place"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        [segue.destinationViewController setPlace:
-         [[self.placesByCountry objectForKey:
-           [self.countries objectAtIndex:indexPath.section]
-           ] objectAtIndex:indexPath.row]];
+        if ([sender isKindOfClass:[NSDictionary class]]) {
+            [segue.destinationViewController setPlace:sender];
+        } else {
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            [segue.destinationViewController setPlace:
+             [[self.placesByCountry objectForKey:
+               [self.countries objectAtIndex:indexPath.section]
+               ] objectAtIndex:indexPath.row]];
+        }
     }
 }
 
@@ -106,22 +112,30 @@ titleForHeaderInSection:(NSInteger)section
              [self.countries objectAtIndex:section]] count];
 }
 
+- (NSString *)tableCellIdentfier
+{
+    return @"Top Places Cell";
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Top Places Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                             reuseIdentifier:CellIdentifier];
-    
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     NSDictionary *place = [[self.placesByCountry objectForKey:
                             [self.countries objectAtIndex:indexPath.section]
                             ] objectAtIndex:indexPath.row];
     cell.textLabel.text = [FlickrData titleOfPlace:place];
     cell.detailTextLabel.text = [FlickrData subtitleOfPlace:place];
-    
     return cell;
 }
 
 #pragma mark - Table view delegate
+
+#pragma mark - Map view delegate
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    FlickrAnnotation *fa = view.annotation;
+    [self performSegueWithIdentifier:@"Show Photos from Place" sender:fa.data];
+}
 
 @end

@@ -7,9 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 @interface CommonTableViewController : UITableViewController
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) UIBarButtonItem *mapButton;
+@property (nonatomic, strong) UIBarButtonItem *tableButton;
+@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, strong) NSArray *data;
+
+- (void)startSpinner;
+- (void)stopSpinner;
+
+- (NSString *)tableCellIdentfier;
+- (NSString *)tableCellTitleForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSString *)tableCellSubtitleForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

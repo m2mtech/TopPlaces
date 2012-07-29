@@ -10,6 +10,7 @@
 #import "PhotoViewController.h"
 #import "FlickrFetcher.h"
 #import "FlickrData.h"
+#import "FlickrAnnotation.h"
 
 @interface TopPhotosTableViewController ()
 
@@ -25,6 +26,7 @@
     if (_photos == photos) return;
     _photos = photos;
     if (self.tableView.window) [self.tableView reloadData];
+    self.data = _photos;
 }
 
 #pragma mark - View lifecycle
@@ -32,7 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.spinner startAnimating];
+    [self startSpinner];
     NSString *title = [FlickrData titleOfPlace:self.place];
     self.navigationItem.title = title;    
     dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
@@ -41,7 +43,7 @@
         NSArray *photos = [FlickrFetcher photosInPlace:self.place maxResults:NUMBER_OF_PHOTOS];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.photos = photos;
-            [self.spinner stopAnimating];
+            [self stopSpinner];
             //NSLog(@"%u %@", [self.photos count], self.photos);
             //NSLog(@"finished loading photosInPlace: %@", title);
         });
@@ -53,30 +55,32 @@
 {
     [super prepareForSegue:segue sender:sender];
     if ([segue.identifier isEqualToString:@"Show Photo"]) {
-        [segue.destinationViewController setPhoto:
-         [self.photos objectAtIndex:
-          [self.tableView indexPathForSelectedRow].row]];        
+        if ([sender isKindOfClass:[NSDictionary class]])
+        {
+            [segue.destinationViewController setPhoto:sender];
+        } else {
+            [segue.destinationViewController setPhoto:
+             [self.photos objectAtIndex:
+              [self.tableView indexPathForSelectedRow].row]];                    
+        }
     }
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.photos count];
 }
 
+- (NSString *)tableCellIdentfier
+{
+    return @"Top Photos Cell";
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Top Photos Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
     cell.textLabel.text = [FlickrData titleOfPhoto:photo];
     cell.detailTextLabel.text = [FlickrData subtitleOfPhoto:photo];
@@ -90,6 +94,18 @@
     id vc = [self.splitViewController.viewControllers lastObject];
     if ([vc isKindOfClass:[PhotoViewController class]]) 
         [vc setPhoto:[self.photos objectAtIndex:indexPath.row]];
+}
+
+#pragma mark - Map view delegate
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    FlickrAnnotation *fa = view.annotation;
+    id vc = [self.splitViewController.viewControllers lastObject];
+    if ([vc isKindOfClass:[PhotoViewController class]])
+        [vc setPhoto:fa.data];
+    else 
+        [self performSegueWithIdentifier:@"Show Photo" sender:fa.data];
 }
 
 @end

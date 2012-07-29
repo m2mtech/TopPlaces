@@ -9,6 +9,7 @@
 #import "RecentPhotosTableViewController.h"
 #import "PhotoViewController.h"
 #import "FlickrData.h"
+#import "FlickrAnnotation.h"
 
 @interface RecentPhotosTableViewController ()
 
@@ -29,6 +30,7 @@
     if (_photos == photos) return;
     _photos = photos;
     [self.tableView reloadData];
+    self.data = _photos;
 }
 
 #pragma mark - View lifecycle
@@ -37,36 +39,39 @@
 {
     [super viewWillAppear:animated];
     [self loadPhotos];
+    [self stopSpinner];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     [super prepareForSegue:segue sender:sender];
     if ([segue.identifier isEqualToString:@"Show Photo"]) {
-        [segue.destinationViewController setPhoto:
-         [self.photos objectAtIndex:
-          [self.tableView indexPathForSelectedRow].row]];        
+        if ([sender isKindOfClass:[NSDictionary class]])
+        {
+            [segue.destinationViewController setPhoto:sender];
+        } else {
+            [segue.destinationViewController setPhoto:
+             [self.photos objectAtIndex:
+              [self.tableView indexPathForSelectedRow].row]];                    
+        }
     }
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.photos count];
 }
 
+- (NSString *)tableCellIdentfier
+{
+    return @"Recent Photos Cell";
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Recent Photos Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
     cell.textLabel.text = [FlickrData titleOfPhoto:photo];
     cell.detailTextLabel.text = [FlickrData subtitleOfPhoto:photo];
@@ -82,6 +87,18 @@
         [vc setPhoto:[self.photos objectAtIndex:indexPath.row]];
         [self loadPhotos];        
     }
+}
+
+#pragma mark - Map view delegate
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    FlickrAnnotation *fa = view.annotation;
+    id vc = [self.splitViewController.viewControllers lastObject];
+    if ([vc isKindOfClass:[PhotoViewController class]])
+        [vc setPhoto:fa.data];
+    else 
+        [self performSegueWithIdentifier:@"Show Photo" sender:fa.data];
 }
 
 @end
