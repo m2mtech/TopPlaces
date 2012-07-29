@@ -15,7 +15,6 @@
 		5B0C61A115C4770000E4C725 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B0C61A015C4770000E4C725 /* MapKit.framework */; };
 		5B0C61A315C4770700E4C725 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B0C61A215C4770700E4C725 /* CoreLocation.framework */; };
 		5B0C61A615C489D000E4C725 /* FlickrAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0C61A515C489D000E4C725 /* FlickrAnnotation.m */; };
-		5B0C61AC15C5388A00E4C725 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 5B0C61AB15C5388A00E4C725 /* README */; };
 		5B7BA52115BEBC3500185E9F /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */; };
 		5B7BA52515BEBC5800185E9F /* RecentPhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BA52415BEBC5800185E9F /* RecentPhotosTableViewController.m */; };
 		5B8AC09215BEA37900460D33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8AC09115BEA37900460D33 /* UIKit.framework */; };
@@ -44,7 +43,7 @@
 		5B0C61A215C4770700E4C725 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5B0C61A415C489D000E4C725 /* FlickrAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAnnotation.h; sourceTree = "<group>"; };
 		5B0C61A515C489D000E4C725 /* FlickrAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrAnnotation.m; sourceTree = "<group>"; };
-		5B0C61AB15C5388A00E4C725 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		5B0C61AD15C5457E00E4C725 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = SOURCE_ROOT; };
 		5B7BA51F15BEBC3500185E9F /* TopPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesTableViewController.h; sourceTree = "<group>"; };
 		5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTableViewController.m; sourceTree = "<group>"; };
 		5B7BA52315BEBC5800185E9F /* RecentPhotosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotosTableViewController.h; sourceTree = "<group>"; };
@@ -115,7 +114,7 @@
 		5B8AC09715BEA37900460D33 /* TopPlaces */ = {
 			isa = PBXGroup;
 			children = (
-				5B0C61AB15C5388A00E4C725 /* README */,
+				5B0C61AD15C5457E00E4C725 /* README */,
 				5B8AC0A015BEA37900460D33 /* TopPlacesAppDelegate.h */,
 				5B8AC0A115BEA37900460D33 /* TopPlacesAppDelegate.m */,
 				5B8AC0A315BEA37A00460D33 /* MainStoryboard_iPhone.storyboard */,
@@ -219,7 +218,6 @@
 				5B8AC09C15BEA37900460D33 /* InfoPlist.strings in Resources */,
 				5B8AC0A515BEA37A00460D33 /* MainStoryboard_iPhone.storyboard in Resources */,
 				5B8AC0A815BEA37A00460D33 /* MainStoryboard_iPad.storyboard in Resources */,
-				5B0C61AC15C5388A00E4C725 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -38,6 +38,27 @@
         [self.mapView removeAnnotations:self.mapView.annotations];
     if (self.annotations) {
         [self.mapView addAnnotations:self.annotations];    
+        FlickrAnnotation *annotation = [self.annotations lastObject]; 
+        CLLocationCoordinate2D min = annotation.coordinate;
+        CLLocationCoordinate2D max = min;
+        for (FlickrAnnotation *annotation in self.annotations) {
+            if (annotation.coordinate.latitude < min.latitude)
+                min.latitude = annotation.coordinate.latitude;
+            else if (annotation.coordinate.latitude > max.latitude)
+                max.latitude = annotation.coordinate.latitude;
+            if (annotation.coordinate.longitude < min.longitude)
+                min.longitude = annotation.coordinate.longitude;
+            else if (annotation.coordinate.longitude > max.longitude)
+                max.longitude = annotation.coordinate.longitude;            
+        }
+        MKCoordinateRegion region;
+        region.center.longitude = (min.longitude + max.longitude) / 2;
+        region.center.latitude = (min.latitude + max.latitude) / 2;
+        region.span.latitudeDelta = (max.latitude - min.latitude) * 1.1;
+        if (!region.span.latitudeDelta) region.span.latitudeDelta = 1;
+        region.span.longitudeDelta = (max.longitude - min.longitude) * 1.1;
+        if (!region.span.longitudeDelta) region.span.longitudeDelta = 1;
+        [self.mapView setRegion:region];
     }
 }
 
