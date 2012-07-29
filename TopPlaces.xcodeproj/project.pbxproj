@@ -15,6 +15,7 @@
 		5B0C61A115C4770000E4C725 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B0C61A015C4770000E4C725 /* MapKit.framework */; };
 		5B0C61A315C4770700E4C725 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B0C61A215C4770700E4C725 /* CoreLocation.framework */; };
 		5B0C61A615C489D000E4C725 /* FlickrAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0C61A515C489D000E4C725 /* FlickrAnnotation.m */; };
+		5B0C61B715C5A45B00E4C725 /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B0C61B615C5A45A00E4C725 /* Placeholder.png */; };
 		5B7BA52115BEBC3500185E9F /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */; };
 		5B7BA52515BEBC5800185E9F /* RecentPhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BA52415BEBC5800185E9F /* RecentPhotosTableViewController.m */; };
 		5B8AC09215BEA37900460D33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8AC09115BEA37900460D33 /* UIKit.framework */; };
@@ -44,6 +45,7 @@
 		5B0C61A415C489D000E4C725 /* FlickrAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAnnotation.h; sourceTree = "<group>"; };
 		5B0C61A515C489D000E4C725 /* FlickrAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrAnnotation.m; sourceTree = "<group>"; };
 		5B0C61AD15C5457E00E4C725 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = SOURCE_ROOT; };
+		5B0C61B615C5A45A00E4C725 /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
 		5B7BA51F15BEBC3500185E9F /* TopPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesTableViewController.h; sourceTree = "<group>"; };
 		5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTableViewController.m; sourceTree = "<group>"; };
 		5B7BA52315BEBC5800185E9F /* RecentPhotosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotosTableViewController.h; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				5B0C619D15C4037100E4C725 /* FlickrCache.m */,
 				5B0C61A415C489D000E4C725 /* FlickrAnnotation.h */,
 				5B0C61A515C489D000E4C725 /* FlickrAnnotation.m */,
+				5B0C61B615C5A45A00E4C725 /* Placeholder.png */,
 				5B8AC0BC15BEA8ED00460D33 /* FlickrFetcher */,
 				5B8AC09815BEA37900460D33 /* Supporting Files */,
 			);
@@ -218,6 +221,7 @@
 				5B8AC09C15BEA37900460D33 /* InfoPlist.strings in Resources */,
 				5B8AC0A515BEA37A00460D33 /* MainStoryboard_iPhone.storyboard in Resources */,
 				5B8AC0A815BEA37A00460D33 /* MainStoryboard_iPad.storyboard in Resources */,
+				5B0C61B715C5A45B00E4C725 /* Placeholder.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

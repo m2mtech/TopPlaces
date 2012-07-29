@@ -177,6 +177,39 @@
 
 #pragma mark - Table view delegate
 
+- (void)tableView:(UITableView *)tableView 
+  willDisplayCell:(UITableViewCell *)cell 
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *photo = [[self.data objectAtIndex:indexPath.row] copy];
+    NSNumber *photoID = [photo objectForKey:FLICKR_PHOTO_ID];
+    if (!photoID) return;
+
+    cell.imageView.image = [UIImage imageNamed:@"Placeholder"];
+
+    dispatch_queue_t queue = dispatch_queue_create("Flickr Thumbnails", NULL);
+    dispatch_async(queue, ^{
+        FlickrCache *cache = [FlickrCache cacheFor:@"photos"];
+        NSURL *url = [cache urlForCachedPhoto:photo 
+                                       format:FlickrPhotoFormatSquare];
+        if (!url) url = [FlickrFetcher urlForPhoto:photo
+                                            format:FlickrPhotoFormatSquare];
+        //NSLog(@"start loading: %@", photoID);
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        //NSLog(@"finished loading: %@", photoID);
+        [cache cacheData:data ofPhoto:photo format:FlickrPhotoFormatSquare];
+        if ([[[self.data objectAtIndex:indexPath.row] objectForKey:FLICKR_PHOTO_ID] 
+             isEqualToString:[photo objectForKey:FLICKR_PHOTO_ID]]) 
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //NSLog(@"changed cell: %@", photoID);
+                UIImage *image = [UIImage imageWithData:data]; 
+                cell.imageView.image = image;
+                [cell setNeedsDisplay];                
+            });
+    });
+    dispatch_release(queue);    
+}
+
 #pragma mark - Map view data source
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
@@ -198,6 +231,8 @@
     
     return aView;
 }
+
+#pragma mark - Map view delegate
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 { 
