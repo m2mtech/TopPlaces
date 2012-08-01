@@ -20,10 +20,11 @@
                     <connections>
                         <segue destination="UNE-T8-F2d" kind="relationship" relationship="viewControllers" id="QGb-oV-DfZ"/>
                         <segue destination="tmO-c6-dIL" kind="relationship" relationship="viewControllers" id="J1j-G1-NWu"/>
+                        <segue destination="9mK-mr-eK8" kind="relationship" relationship="viewControllers" id="pmu-8P-3md"/>
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="80" y="291"/>
+            <point key="canvasLocation" x="73" y="638"/>
         </scene>
         <!--Top Places Table View Controller - Top Places-->
         <scene sceneID="nY1-N9-rhD">
@@ -208,14 +209,14 @@
                     <navigationItem key="navigationItem" title="Recent Photos" id="hGk-TG-Z7C"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1114" y="620"/>
+            <point key="canvasLocation" x="1114" y="638"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Top Places-->
         <scene sceneID="Cpg-tj-aWS">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bUA-H5-90V" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="UNE-T8-F2d" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="topRated" id="9qL-RO-AlA"/>
+                    <tabBarItem key="tabBarItem" title="Top Places" image="world.png" id="9qL-RO-AlA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="z7X-PV-npW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -228,6 +229,57 @@
                 </navigationController>
             </objects>
             <point key="canvasLocation" x="635" y="39"/>
+        </scene>
+        <!--Vacations Table View Controller - Vacations-->
+        <scene sceneID="rWu-Vr-aL0">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CmJ-ed-jsU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="5SL-EJ-Gya" customClass="VacationsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hgu-lT-xbU">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Vacation Cell" textLabel="TC7-bX-ibR" style="IBUITableViewCellStyleDefault" id="Gnz-Sl-0yo">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TC7-bX-ibR">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Vacations" id="yRF-Ax-ua8"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1114" y="1276"/>
+        </scene>
+        <!--Navigation Controller - Vacations-->
+        <scene sceneID="BWj-nX-BYg">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D8d-on-T5o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="9mK-mr-eK8" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Vacations" image="palm.png" id="1H0-ft-93f"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="21H-DF-GCN">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="5SL-EJ-Gya" kind="relationship" relationship="rootViewController" id="qeg-YK-fCN"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="635" y="1276"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MxF-Fy-SgO">
@@ -246,9 +298,13 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="635" y="620"/>
+            <point key="canvasLocation" x="635" y="638"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="palm.png" width="30" height="30"/>
+        <image name="world.png" width="30" height="30"/>
+    </resources>
     <classes>
         <class className="CommonTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommonTableViewController.h"/>
@@ -271,6 +327,9 @@
         </class>
         <class className="TopPlacesTableViewController" superclassName="CommonTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>
+        </class>
+        <class className="VacationsTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/VacationsTableViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -16,6 +16,12 @@
 		5B0C61A315C4770700E4C725 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B0C61A215C4770700E4C725 /* CoreLocation.framework */; };
 		5B0C61A615C489D000E4C725 /* FlickrAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0C61A515C489D000E4C725 /* FlickrAnnotation.m */; };
 		5B0C61B715C5A45B00E4C725 /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B0C61B615C5A45A00E4C725 /* Placeholder.png */; };
+		5B54CD5915C9744A00AA1262 /* palm.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B54CD5715C9744A00AA1262 /* palm.png */; };
+		5B54CD5A15C9744A00AA1262 /* palm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B54CD5815C9744A00AA1262 /* palm@2x.png */; };
+		5B54CD5D15C9745900AA1262 /* world.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B54CD5B15C9745900AA1262 /* world.png */; };
+		5B54CD5E15C9745900AA1262 /* world@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B54CD5C15C9745900AA1262 /* world@2x.png */; };
+		5B54CD6115C9759900AA1262 /* VacationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B54CD6015C9759900AA1262 /* VacationsTableViewController.m */; };
+		5B54CD6515C97DC500AA1262 /* VacationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B54CD6415C97DC500AA1262 /* VacationHelper.m */; };
 		5B7BA52115BEBC3500185E9F /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */; };
 		5B7BA52515BEBC5800185E9F /* RecentPhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B7BA52415BEBC5800185E9F /* RecentPhotosTableViewController.m */; };
 		5B8AC09215BEA37900460D33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8AC09115BEA37900460D33 /* UIKit.framework */; };
@@ -46,6 +52,14 @@
 		5B0C61A515C489D000E4C725 /* FlickrAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrAnnotation.m; sourceTree = "<group>"; };
 		5B0C61AD15C5457E00E4C725 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = SOURCE_ROOT; };
 		5B0C61B615C5A45A00E4C725 /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
+		5B54CD5715C9744A00AA1262 /* palm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = palm.png; sourceTree = "<group>"; };
+		5B54CD5815C9744A00AA1262 /* palm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "palm@2x.png"; sourceTree = "<group>"; };
+		5B54CD5B15C9745900AA1262 /* world.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world.png; sourceTree = "<group>"; };
+		5B54CD5C15C9745900AA1262 /* world@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "world@2x.png"; sourceTree = "<group>"; };
+		5B54CD5F15C9759900AA1262 /* VacationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VacationsTableViewController.h; sourceTree = "<group>"; };
+		5B54CD6015C9759900AA1262 /* VacationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VacationsTableViewController.m; sourceTree = "<group>"; };
+		5B54CD6315C97DC500AA1262 /* VacationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VacationHelper.h; sourceTree = "<group>"; };
+		5B54CD6415C97DC500AA1262 /* VacationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VacationHelper.m; sourceTree = "<group>"; };
 		5B7BA51F15BEBC3500185E9F /* TopPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesTableViewController.h; sourceTree = "<group>"; };
 		5B7BA52015BEBC3500185E9F /* TopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTableViewController.m; sourceTree = "<group>"; };
 		5B7BA52315BEBC5800185E9F /* RecentPhotosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotosTableViewController.h; sourceTree = "<group>"; };
@@ -84,6 +98,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B54CD5515C9743400AA1262 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				5B0C61B615C5A45A00E4C725 /* Placeholder.png */,
+				5B54CD5715C9744A00AA1262 /* palm.png */,
+				5B54CD5815C9744A00AA1262 /* palm@2x.png */,
+				5B54CD5B15C9745900AA1262 /* world.png */,
+				5B54CD5C15C9745900AA1262 /* world@2x.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		5B8AC08215BEA37900460D33 = {
 			isa = PBXGroup;
 			children = (
@@ -132,13 +158,17 @@
 				5B0478B915C11DAB00CAC407 /* PhotoViewController.h */,
 				5B0478BA15C11DAB00CAC407 /* PhotoViewController.m */,
 				5BBD450015C1AC4900959585 /* SplitViewBarButtonItemPresenter.h */,
+				5B54CD5F15C9759900AA1262 /* VacationsTableViewController.h */,
+				5B54CD6015C9759900AA1262 /* VacationsTableViewController.m */,
+				5B54CD6315C97DC500AA1262 /* VacationHelper.h */,
+				5B54CD6415C97DC500AA1262 /* VacationHelper.m */,
 				5B0478BF15C1339800CAC407 /* FlickrData.h */,
 				5B0478C015C1339800CAC407 /* FlickrData.m */,
 				5B0C619C15C4037100E4C725 /* FlickrCache.h */,
 				5B0C619D15C4037100E4C725 /* FlickrCache.m */,
 				5B0C61A415C489D000E4C725 /* FlickrAnnotation.h */,
 				5B0C61A515C489D000E4C725 /* FlickrAnnotation.m */,
-				5B0C61B615C5A45A00E4C725 /* Placeholder.png */,
+				5B54CD5515C9743400AA1262 /* Images */,
 				5B8AC0BC15BEA8ED00460D33 /* FlickrFetcher */,
 				5B8AC09815BEA37900460D33 /* Supporting Files */,
 			);
@@ -222,6 +252,10 @@
 				5B8AC0A515BEA37A00460D33 /* MainStoryboard_iPhone.storyboard in Resources */,
 				5B8AC0A815BEA37A00460D33 /* MainStoryboard_iPad.storyboard in Resources */,
 				5B0C61B715C5A45B00E4C725 /* Placeholder.png in Resources */,
+				5B54CD5915C9744A00AA1262 /* palm.png in Resources */,
+				5B54CD5A15C9744A00AA1262 /* palm@2x.png in Resources */,
+				5B54CD5D15C9745900AA1262 /* world.png in Resources */,
+				5B54CD5E15C9745900AA1262 /* world@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +277,8 @@
 				5B0478C115C1339900CAC407 /* FlickrData.m in Sources */,
 				5B0C619E15C4037100E4C725 /* FlickrCache.m in Sources */,
 				5B0C61A615C489D000E4C725 /* FlickrAnnotation.m in Sources */,
+				5B54CD6115C9759900AA1262 /* VacationsTableViewController.m in Sources */,
+				5B54CD6515C97DC500AA1262 /* VacationHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

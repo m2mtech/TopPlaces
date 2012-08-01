@@ -21,6 +21,7 @@
                     <connections>
                         <segue destination="XqY-ev-Ol1" kind="relationship" relationship="viewControllers" id="w0o-mW-wik"/>
                         <segue destination="okk-K1-doI" kind="relationship" relationship="viewControllers" id="Q2l-Gh-6SP"/>
+                        <segue destination="YcV-bX-oeG" kind="relationship" relationship="viewControllers" id="IrJ-KS-pLj"/>
                     </connections>
                 </tabBarController>
             </objects>
@@ -38,7 +39,7 @@
                     </connections>
                 </splitViewController>
             </objects>
-            <point key="canvasLocation" x="-1525" y="1436"/>
+            <point key="canvasLocation" x="-1525" y="1913"/>
         </scene>
         <!--Top Places Table View Controller - Top Places-->
         <scene sceneID="B02-a4-ejX">
@@ -185,7 +186,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-487" y="2237"/>
+            <point key="canvasLocation" x="-487" y="3277"/>
         </scene>
         <!--Recent Photos Table View Controller - Recent Photos-->
         <scene sceneID="EMz-ij-h5c">
@@ -234,12 +235,12 @@
             </objects>
             <point key="canvasLocation" x="635" y="1196"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Top Places-->
         <scene sceneID="HGq-SS-05s">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="esL-oV-czq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="XqY-ev-Ol1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="topRated" id="Oic-he-tA1"/>
+                    <tabBarItem key="tabBarItem" title="Top Places" image="world.png" id="Oic-he-tA1"/>
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="PcU-N8-E3y">
@@ -274,7 +275,64 @@
             </objects>
             <point key="canvasLocation" x="74" y="1196"/>
         </scene>
+        <!--Vacations Table View Controller - Vacations-->
+        <scene sceneID="y6N-J4-Fv0">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bpT-WI-RGH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="6qN-TW-SXi" customClass="VacationsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="kSD-OT-WKU">
+                        <rect key="frame" x="0.0" y="64" width="320" height="739"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Vacation Cell" textLabel="mqG-qa-61M" style="IBUITableViewCellStyleDefault" id="6Kn-xh-AV5">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mqG-qa-61M">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Vacations" id="mB8-69-f8A"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="635" y="2236"/>
+        </scene>
+        <!--Navigation Controller - Vacations-->
+        <scene sceneID="fn6-ls-C5b">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X6g-ac-Ohw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="YcV-bX-oeG" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Vacations" image="palm.png" id="pko-2x-K2l"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="k6w-eh-qef">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="6qN-TW-SXi" kind="relationship" relationship="rootViewController" id="Nw1-jh-MKk"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="74" y="2236"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="palm.png" width="30" height="30"/>
+        <image name="world.png" width="30" height="30"/>
+    </resources>
     <classes>
         <class className="CommonTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommonTableViewController.h"/>
@@ -297,6 +355,9 @@
         </class>
         <class className="TopPlacesTableViewController" superclassName="CommonTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>
+        </class>
+        <class className="VacationsTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/VacationsTableViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
