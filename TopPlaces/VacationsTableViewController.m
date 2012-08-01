@@ -7,6 +7,7 @@
 //
 
 #import "VacationsTableViewController.h"
+#import "VacationTableViewController.h"
 #import "VacationHelper.h"
 
 @interface VacationsTableViewController ()
@@ -29,6 +30,15 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [super prepareForSegue:segue sender:sender];
+    if ([segue.identifier isEqualToString:@"Show Vacation"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];        
+        [segue.destinationViewController setVacation:[self.vacations objectAtIndex:indexPath.row]];        
+    }
 }
 
 #pragma mark - Table view data source
