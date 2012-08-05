@@ -7,6 +7,8 @@
 //
 
 #import "VacationTableViewController.h"
+#import "ItineraryTableViewController.h"
+#import "VacationHelper.h"
 
 @interface VacationTableViewController ()
 
@@ -16,12 +18,22 @@
 
 @synthesize vacation = _vacation;
 
+- (void)setVacation:(NSString *)vacation
+{
+    if (vacation == _vacation) return;
+    _vacation = vacation;
+    self.title = vacation;
+    [VacationHelper sharedVacation:vacation];
+}
+
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [super viewDidLoad];
-    self.title = self.vacation;
+    [super prepareForSegue:segue sender:sender];
+    if ([segue.identifier isEqualToString:@"Show Itinerary"]) {
+        [segue.destinationViewController setVacation:self.vacation];        
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -30,28 +30,45 @@
 @synthesize spinner = _spinner;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 @synthesize photo = _photo;
+@synthesize coreDataPhoto = _coreDataPhoto;
 
 - (void)loadPhoto
 {
     NSString *title = @"Photo";
-    if (self.photo) title = [FlickrData titleOfPhoto:self.photo];
+    NSString *photoID;
+    if (self.photo) {
+        title = [FlickrData titleOfPhoto:self.photo];
+        photoID = [[self.photo objectForKey:FLICKR_PHOTO_ID] copy];
+    }
+    if (self.coreDataPhoto) {
+        title = [FlickrData titleOfPhoto:self.coreDataPhoto];   
+        photoID = [self.coreDataPhoto.unique copy];
+    }
     self.navigationItem.title = title;
     self.toolbarTitle.title = title;
     if (self.imageView.image) self.imageView.alpha = 0.5;
-    if (self.photo) [self.spinner startAnimating];
-    NSDictionary *photo = [self.photo copy];
+    if (self.photo || self.coreDataPhoto) [self.spinner startAnimating];
+
     dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
     dispatch_async(queue, ^{
         FlickrCache *cache = [FlickrCache cacheFor:@"photos"];
-        NSURL *url = [cache urlForCachedPhoto:photo 
-                                       format:FlickrPhotoFormatLarge];
-        if (!url) url = [FlickrFetcher urlForPhoto:photo 
-                                            format:FlickrPhotoFormatLarge];
+        NSURL *url = [cache urlForCachedPhotoID:photoID format:FlickrPhotoFormatLarge];
+        if (!url) {
+            if (self.photo) {
+                url = [FlickrFetcher urlForPhoto:self.photo 
+                                          format:FlickrPhotoFormatLarge];
+            }
+            if (self.coreDataPhoto) {
+                url = [NSURL URLWithString:self.coreDataPhoto.imageUrl];
+            }            
+        }
         NSData *data = [NSData dataWithContentsOfURL:url];
-        [cache cacheData:data ofPhoto:photo format:FlickrPhotoFormatLarge];
-        if (self.imageView.window && 
-            [[self.photo objectForKey:FLICKR_PHOTO_ID] 
-             isEqualToString:[photo objectForKey:FLICKR_PHOTO_ID]]) 
+        [cache cacheData:data ofPhotoID:photoID format:FlickrPhotoFormatLarge];
+        if (self.imageView.window 
+            && ((self.photo 
+                 && [[self.photo objectForKey:FLICKR_PHOTO_ID] isEqualToString:photoID]) 
+             || (self.coreDataPhoto 
+                 && [self.coreDataPhoto.unique isEqualToString:photoID]))) 
             dispatch_async(dispatch_get_main_queue(), ^{
             UIImage *image = [UIImage imageWithData:data];        
             self.scrollView.zoomScale = 1.0;
@@ -75,10 +92,10 @@
 - (void)setPhoto:(NSDictionary *)photo
 {    
     if (_photo == photo) return;
-    _photo = photo;    
+    _photo = photo;
+    self.coreDataPhoto = nil;
     
-    if (self.imageView.window)
-        [self loadPhoto];        
+    if (self.imageView.window) [self loadPhoto];        
         
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *recents = [[defaults objectForKey:RECENTS_PHOTOS_KEY] 
@@ -94,6 +111,15 @@
         [recents removeLastObject];    
     [defaults setObject:recents forKey:RECENTS_PHOTOS_KEY];
     [defaults synchronize];    
+}
+
+- (void)setCoreDataPhoto:(Photo *)coreDataPhoto
+{
+    if (_coreDataPhoto == coreDataPhoto) return;
+    _coreDataPhoto = coreDataPhoto;
+    self.photo = nil;
+    
+    if (self.imageView.window) [self loadPhoto];    
 }
 
 - (void)handleSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem

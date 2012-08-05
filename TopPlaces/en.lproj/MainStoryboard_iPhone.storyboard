@@ -73,7 +73,7 @@
                     <navigationItem key="navigationItem" title="Top Places" id="Pi6-62-5iI"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1114" y="39"/>
+            <point key="canvasLocation" x="1114" y="-1"/>
         </scene>
         <!--Top Photos Table View Controller - Top Photos-->
         <scene sceneID="Fj2-fi-YlD">
@@ -122,7 +122,7 @@
                     <navigationItem key="navigationItem" title="Photos from ..." id="C5O-6w-BmO"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1597" y="39"/>
+            <point key="canvasLocation" x="1597" y="-1"/>
         </scene>
         <!--Photo View Controller - Photo-->
         <scene sceneID="PHu-qh-2fY">
@@ -160,7 +160,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2074" y="36"/>
+            <point key="canvasLocation" x="3115" y="-1"/>
         </scene>
         <!--Recent Photos Table View Controller - Recent Photos-->
         <scene sceneID="y3P-H8-ALq">
@@ -228,7 +228,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="635" y="39"/>
+            <point key="canvasLocation" x="635" y="-1"/>
         </scene>
         <!--Vacations Table View Controller - Vacations-->
         <scene sceneID="rWu-Vr-aL0">
@@ -280,15 +280,15 @@
                         <sections>
                             <tableViewSection id="pcC-Ox-5vJ">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="K6Y-37-MbI" style="IBUITableViewCellStyleDefault" id="XUO-2W-DcQ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="K6Y-37-MbI" style="IBUITableViewCellStyleDefault" id="XUO-2W-DcQ">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Itinerary" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="K6Y-37-MbI">
-                                                    <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                                    <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -297,6 +297,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <segue destination="La6-Wr-bG1" kind="push" identifier="Show Itinerary" id="k4Y-di-zEK"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Nja-oX-Yhr" style="IBUITableViewCellStyleDefault" id="Uku-a4-nx5">
                                         <rect key="frame" x="0.0" y="44" width="320" height="44"/>
@@ -328,6 +331,104 @@
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1597" y="1276"/>
+        </scene>
+        <!--Itinerary Table View Controller - Itinerary-->
+        <scene sceneID="6X8-hn-wYT">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="THf-lv-XaS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="La6-Wr-bG1" customClass="ItineraryTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="XhO-Sd-gNm">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Itinerary Cell" textLabel="fTv-cb-tVa" detailTextLabel="Bfu-kG-X0n" style="IBUITableViewCellStyleSubtitle" id="Kqc-mf-sUh">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fTv-cb-tVa">
+                                            <rect key="frame" x="10" y="2" width="38" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bfu-kG-X0n">
+                                            <rect key="frame" x="10" y="24" width="47" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="QaA-0X-Z56" kind="push" identifier="Show Vacation Photos" id="2As-IO-Pfb"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="La6-Wr-bG1" id="eZf-MM-ush"/>
+                            <outlet property="delegate" destination="La6-Wr-bG1" id="GDe-ZH-WTg"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Itinerary" id="rWv-dQ-zft"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2074" y="1276"/>
+        </scene>
+        <!--Vacation Photos Table View Controller - Photos-->
+        <scene sceneID="w4t-WD-NJZ">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A6S-DR-wWu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="QaA-0X-Z56" customClass="VacationPhotosTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="emb-SX-sp0">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Vacation Photo Cell" textLabel="7BK-Ub-f6f" detailTextLabel="95n-Y7-z5P" style="IBUITableViewCellStyleSubtitle" id="caZ-j3-650">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7BK-Ub-f6f">
+                                            <rect key="frame" x="10" y="2" width="38" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="95n-Y7-z5P">
+                                            <rect key="frame" x="10" y="24" width="47" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <segue destination="pDl-0j-Cwq" kind="push" identifier="Show Photo" id="JgA-YG-w3e"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="QaA-0X-Z56" id="nU7-wS-3Q8"/>
+                            <outlet property="delegate" destination="QaA-0X-Z56" id="ry4-5e-a9Y"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Photos" id="JBx-wI-0aq"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2555" y="1276"/>
         </scene>
         <!--Navigation Controller - Vacations-->
         <scene sceneID="BWj-nX-BYg">
@@ -373,6 +474,12 @@
         <class className="CommonTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CommonTableViewController.h"/>
         </class>
+        <class className="CoreDataTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="ItineraryTableViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ItineraryTableViewController.h"/>
+        </class>
         <class className="PhotoViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoViewController.h"/>
             <relationships>
@@ -391,6 +498,9 @@
         </class>
         <class className="TopPlacesTableViewController" superclassName="CommonTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>
+        </class>
+        <class className="VacationPhotosTableViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/VacationPhotosTableViewController.h"/>
         </class>
         <class className="VacationTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/VacationTableViewController.h"/>

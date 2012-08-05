@@ -14,12 +14,12 @@
 
 @interface FlickrData : NSObject
 
-+ (NSString *)titleOfPlace:(NSDictionary *)place;
-+ (NSString *)subtitleOfPlace:(NSDictionary *)place;
++ (NSString *)titleOfPlace:(id)place;
++ (NSString *)subtitleOfPlace:(id)place;
 
 + (NSString *)countryOfPlace:(NSDictionary *)place;
 
-+ (NSString *)titleOfPhoto:(NSDictionary *)photo; 
-+ (NSString *)subtitleOfPhoto:(NSDictionary *)photo; 
++ (NSString *)titleOfPhoto:(id)photo; 
++ (NSString *)subtitleOfPhoto:(id)photo; 
 
 @end

@@ -18,14 +18,14 @@
 
 @synthesize vacations = _vacations;
 
-- (NSArray *)vacations
-{
-    if (!_vacations) _vacations = [VacationHelper getVacations];
-    //NSLog(@"%@", _vacations);
-    return _vacations;
-}
-
 #pragma mark - View lifecycle
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //[VacationHelper createTestDatabase];
+    self.vacations = [VacationHelper getVacations];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

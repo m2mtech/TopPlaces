@@ -13,6 +13,14 @@
 
 @interface VacationHelper : NSObject
 
+@property (nonatomic, strong) NSString *vacation;
+@property (nonatomic, strong) UIManagedDocument *database;
+
 + (NSArray *)getVacations;
++ (VacationHelper *)sharedVacation:(NSString *)vacationName;
++ (void)openVacation:(NSString *)vacationName
+          usingBlock:(void (^)(BOOL success))block;
+
++ (void)createTestDatabase;
 
 @end

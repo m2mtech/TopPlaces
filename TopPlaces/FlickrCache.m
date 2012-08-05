@@ -7,6 +7,7 @@
 //
 
 #import "FlickrCache.h"
+#import "Photo.h"
 
 @interface FlickrCache ()
 
@@ -50,15 +51,25 @@
     return cache;
 }
 
-- (NSURL *)urlForLocalPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format
+- (NSURL *)urlForLocalPhoto:(id)photo format:(FlickrPhotoFormat)format
 {
     if (!photo) return nil;
-    NSString *fileName = [NSString stringWithFormat:@"%u-%@", format,
-                          [photo objectForKey:FLICKR_PHOTO_ID]];
-   return [self.cacheDir URLByAppendingPathComponent:fileName];
+    NSString * photoID;
+    if ([photo isKindOfClass:[NSDictionary class]])
+        photoID = [photo objectForKey:FLICKR_PHOTO_ID];
+    if ([photo isKindOfClass:[Photo class]])
+        photoID = ((Photo *)photo).unique;    
+    return [self urlForCachedPhotoID:photoID format:format];
 }
 
-- (NSURL *)urlForCachedPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format
+- (NSURL *)urlForLocalPhotoID:(NSString *)photoID format:(FlickrPhotoFormat)format
+{
+    if (!photoID) return nil;
+    NSString *fileName = [NSString stringWithFormat:@"%u-%@", format, photoID];
+    return [self.cacheDir URLByAppendingPathComponent:fileName];
+}
+
+- (NSURL *)urlForCachedPhoto:(id)photo format:(FlickrPhotoFormat)format
 {
     if (!photo) return nil;
     NSURL *url = [self urlForLocalPhoto:photo format:format];
@@ -66,10 +77,27 @@
     return nil;
 }
 
-- (void)cacheData:(NSData *)data ofPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format
+- (NSURL *)urlForCachedPhotoID:(NSString *)photoID format:(FlickrPhotoFormat)format
+{
+    if (!photoID) return nil;
+    NSURL *url = [self urlForLocalPhotoID:photoID format:format];
+    if ([self.fileManager fileExistsAtPath:[url path]]) return url;    
+    return nil;
+}
+
+- (void)cacheData:(NSData *)data ofPhoto:(id)photo format:(FlickrPhotoFormat)format
 {
     if (!photo) return;
     NSString *path = [[self urlForLocalPhoto:photo format:format] path];
+    if ([self.fileManager fileExistsAtPath:path]) return;    
+    [self.fileManager createFileAtPath:path contents:data attributes:nil];
+    [self cleanupOldFiles];
+}
+
+- (void)cacheData:(NSData *)data ofPhotoID:(NSString *)photoID format:(FlickrPhotoFormat)format
+{
+    if (!photoID) return;
+    NSString *path = [[self urlForLocalPhotoID:photoID format:format] path];
     if ([self.fileManager fileExistsAtPath:path]) return;    
     [self.fileManager createFileAtPath:path contents:data attributes:nil];
     [self cleanupOldFiles];

@@ -8,19 +8,29 @@
 
 #import "FlickrData.h"
 #import "FlickrFetcher.h"
+#import "Place.h"
+#import "Photo.h"
 
 @implementation FlickrData
 
-+ (NSString *)titleOfPlace:(NSDictionary *)place
++ (NSString *)titleOfPlace:(id)place
 {
-    return [[[place objectForKey:FLICKR_PLACE_NAME] 
-             componentsSeparatedByString:@", "] objectAtIndex:0];
+    NSString *name;
+    if ([place isKindOfClass:[NSDictionary class]])
+        name = [place objectForKey:FLICKR_PLACE_NAME];
+    else if ([place isKindOfClass:[Place class]])
+        name = ((Place *)place).name;
+    return [[name componentsSeparatedByString:@", "] objectAtIndex:0];
 }
 
-+ (NSString *)subtitleOfPlace:(NSDictionary *)place
++ (NSString *)subtitleOfPlace:(id)place
 {
-    NSArray *nameParts = [[place objectForKey:FLICKR_PLACE_NAME] 
-                          componentsSeparatedByString:@", "];
+    NSString *name;
+    if ([place isKindOfClass:[NSDictionary class]])
+        name = [place objectForKey:FLICKR_PLACE_NAME];
+    else if ([place isKindOfClass:[Place class]])
+        name = ((Place *)place).name;
+    NSArray *nameParts = [name componentsSeparatedByString:@", "];
     NSRange range;
     range.location = 1;
     range.length = [nameParts count] - 1;
@@ -33,20 +43,33 @@
              componentsSeparatedByString:@", "] lastObject];    
 }
 
-+ (NSString *)titleOfPhoto:(NSDictionary *)photo
++ (NSString *)titleOfPhoto:(id)photo
 {
-    NSString *title = [photo objectForKey:FLICKR_PHOTO_TITLE];
+    NSString *title;
+    if ([photo isKindOfClass:[NSDictionary class]])
+        title = [photo objectForKey:FLICKR_PHOTO_TITLE];
+    else if ([photo isKindOfClass:[Photo class]])
+        title = ((Photo *)photo).title;
     if ([title length]) return title;
-    title = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    if ([photo isKindOfClass:[NSDictionary class]])
+        title = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    else if ([photo isKindOfClass:[Photo class]])
+        title = ((Photo *)photo).subtitle;
     if ([title length]) return title;
     return UNKNOWN_PHOTO_TITLE;
 }
 
-+ (NSString *)subtitleOfPhoto:(NSDictionary *)photo
++ (NSString *)subtitleOfPhoto:(id)photo
 {
-    if ([[photo objectForKey:FLICKR_PHOTO_TITLE] length])
-        return [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
-    return @"";
+    NSString *title = [FlickrData titleOfPhoto:photo];
+    if ([title isEqualToString:UNKNOWN_PHOTO_TITLE]) return @"";
+    NSString *subtitle;
+    if ([photo isKindOfClass:[NSDictionary class]])
+        subtitle = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    else if ([photo isKindOfClass:[Photo class]])
+        subtitle = ((Photo *)photo).subtitle;
+    if ([title isEqualToString:subtitle]) return @"";
+    return subtitle;
 }
 
 @end

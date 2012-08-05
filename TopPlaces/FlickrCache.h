@@ -15,8 +15,10 @@
 
 + (FlickrCache *)cacheFor:(NSString *)folder;
 
-- (NSURL *)urlForCachedPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format;
+- (NSURL *)urlForCachedPhoto:(id)photo format:(FlickrPhotoFormat)format;
+- (NSURL *)urlForCachedPhotoID:(NSString *)photoID format:(FlickrPhotoFormat)format;
 
-- (void)cacheData:(NSData *)data ofPhoto:(NSDictionary *)photo format:(FlickrPhotoFormat)format;
+- (void)cacheData:(NSData *)data ofPhoto:(id)photo format:(FlickrPhotoFormat)format;
+- (void)cacheData:(NSData *)data ofPhotoID:(NSString *)photoID format:(FlickrPhotoFormat)format;
 
 @end
