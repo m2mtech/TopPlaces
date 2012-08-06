@@ -10,6 +10,8 @@
 #import "SplitViewBarButtonItemPresenter.h"
 #import "Photo.h"
 
+#define VACATION_SELECTION_POPOVER_TABLE_SIZE 220
+
 @interface PhotoViewController : UIViewController <SplitViewBarButtonItemPresenter>
 
 @property (nonatomic, strong) NSDictionary *photo;

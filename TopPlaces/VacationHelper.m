@@ -14,7 +14,6 @@
 
 @interface VacationHelper ()
 
-@property (nonatomic, strong) NSFileManager *fileManager;
 @property (nonatomic, strong) NSURL *baseDir;
 
 @end
@@ -82,7 +81,7 @@
         if (error) continue;
         [vacations addObject:name];
     }
-    
+
     if ([vacations count]) return vacations;
     
     return [NSArray arrayWithObject:DEFAULT_VACATION_NAME];;
@@ -97,12 +96,7 @@
     });
     if (vacationName && ![vacationName isEqualToString:_sharedVacation.vacation]) {
         if (_sharedVacation.vacation) 
-            [_sharedVacation.database closeWithCompletionHandler:^(BOOL success) {
-                if (success)
-                    _sharedVacation.database = nil;
-                else 
-                    NSLog(@"error in sharedVacation closing database");
-        }];        
+            _sharedVacation.database = nil;
         _sharedVacation.vacation = vacationName;
     }
     return _sharedVacation;
@@ -111,7 +105,7 @@
 + (void)openVacation:(NSString *)vacationName usingBlock:(void (^)(BOOL))block
 {
     VacationHelper *vh = [VacationHelper sharedVacation:vacationName];
-    if (!vacationName && !vh.vacation) vh.vacation = DEFAULT_VACATION_NAME;
+    if (!vacationName && !vh.vacation) vh.vacation = DEFAULT_VACATION_NAME;    
     if (![vh.fileManager fileExistsAtPath:[vh.database.fileURL path]]) {
         [vh.database saveToURL:vh.database.fileURL 
               forSaveOperation:UIDocumentSaveForCreating 

@@ -46,6 +46,7 @@
 		5BDD34D215CFB2F2000E2EB8 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD34D115CFB2F1000E2EB8 /* Tag.m */; };
 		5BDD34D515CFB2F3000E2EB8 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD34D415CFB2F3000E2EB8 /* Photo.m */; };
 		5BDD34D815CFB2F5000E2EB8 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BDD34D715CFB2F5000E2EB8 /* Place.m */; };
+		5BE470D915D00B920040E69E /* AddVacationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE470D815D00B920040E69E /* AddVacationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +118,8 @@
 		5BDD34D415CFB2F3000E2EB8 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		5BDD34D615CFB2F4000E2EB8 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		5BDD34D715CFB2F5000E2EB8 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		5BE470D715D00B920040E69E /* AddVacationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddVacationViewController.h; sourceTree = "<group>"; };
+		5BE470D815D00B920040E69E /* AddVacationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddVacationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +200,8 @@
 				5BBD450015C1AC4900959585 /* SplitViewBarButtonItemPresenter.h */,
 				5B54CD5F15C9759900AA1262 /* VacationsTableViewController.h */,
 				5B54CD6015C9759900AA1262 /* VacationsTableViewController.m */,
+				5BE470D715D00B920040E69E /* AddVacationViewController.h */,
+				5BE470D815D00B920040E69E /* AddVacationViewController.m */,
 				5B54CD6A15C9996500AA1262 /* VacationTableViewController.h */,
 				5B54CD6B15C9996500AA1262 /* VacationTableViewController.m */,
 				5B54CD7015CA638F00AA1262 /* CoreDataTableViewController.h */,
@@ -353,6 +358,7 @@
 				5BDD34D215CFB2F2000E2EB8 /* Tag.m in Sources */,
 				5BDD34D515CFB2F3000E2EB8 /* Photo.m in Sources */,
 				5BDD34D815CFB2F5000E2EB8 /* Place.m in Sources */,
+				5BE470D915D00B920040E69E /* AddVacationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

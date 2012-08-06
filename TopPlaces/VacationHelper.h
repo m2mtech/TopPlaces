@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) NSString *vacation;
 @property (nonatomic, strong) UIManagedDocument *database;
+@property (nonatomic, strong) NSFileManager *fileManager;
+
 
 + (NSArray *)getVacations;
 + (VacationHelper *)sharedVacation:(NSString *)vacationName;

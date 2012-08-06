@@ -13,7 +13,11 @@
 #import "VacationHelper.h"
 #import "Photo+Flickr.h"
 
-@interface PhotoViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
+@interface PhotoViewController () <UIScrollViewDelegate, 
+                                   UISplitViewControllerDelegate, 
+                                   UIPopoverControllerDelegate,
+                                   UITableViewDelegate, 
+                                   UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -21,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarTitle;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *visitButton;
+@property (nonatomic, strong) UIPopoverController *popoverController;
+@property (nonatomic, strong) NSArray *vacations;
 
 @end
 
@@ -35,6 +41,8 @@
 @synthesize photo = _photo;
 @synthesize coreDataPhoto = _coreDataPhoto;
 @synthesize visitButton = _visitButton;
+@synthesize popoverController;
+@synthesize vacations = _vacations;
 
 - (void)displayVisitButtonForPhotoID:(NSString *)photoID {
     VacationHelper *vh = [VacationHelper sharedVacation:nil];
@@ -74,6 +82,11 @@
     return _visitButton;
 }
 
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.visitButton.enabled = YES;
+}
+
 - (IBAction)visitButtonPressed:(id)sender
 {
     VacationHelper *vh = [VacationHelper sharedVacation:nil];
@@ -91,11 +104,34 @@
     } 
     if (self.photo) {
         if ([self.visitButton.title isEqualToString:@"Visit"]) {
-            self.visitButton.title = @"Unvisit";
-            [VacationHelper openVacation:vh.vacation usingBlock:^(BOOL success) {
-                [Photo photoFromFlickrInfo:self.photo 
-                    inManagedObjectContext:vh.database.managedObjectContext];
-            }];            
+            CGRect frame = CGRectMake(0, 0, 
+                                      VACATION_SELECTION_POPOVER_TABLE_SIZE, 
+                                      VACATION_SELECTION_POPOVER_TABLE_SIZE);   
+            UITableView *tableView = [[UITableView alloc] 
+                                      initWithFrame:frame                                      
+                                            style:UITableViewStylePlain];               
+            tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;            
+            tableView.delegate = self;            
+            tableView.dataSource = self;            
+            [tableView reloadData];
+            UIViewController* content = [[UIViewController alloc] init];
+            content.view = tableView;
+
+            if (self.splitViewController) {
+                self.visitButton.enabled = NO;            
+                CGSize size = CGSizeMake(VACATION_SELECTION_POPOVER_TABLE_SIZE, 
+                                         VACATION_SELECTION_POPOVER_TABLE_SIZE);
+                content.contentSizeForViewInPopover = size;
+                UIPopoverController* popover = [[UIPopoverController alloc]
+                                                initWithContentViewController:content];            
+                popover.delegate = self;
+                self.popoverController = popover;
+                [self.popoverController presentPopoverFromBarButtonItem:sender
+                                               permittedArrowDirections:UIPopoverArrowDirectionAny 
+                                                               animated:YES];                
+            } else {
+                [self.navigationController pushViewController:content animated:YES];
+            }
         } else {
             self.visitButton.title = @"Visit";
             [VacationHelper openVacation:vh.vacation usingBlock:^(BOOL success) {
@@ -174,9 +210,10 @@
     _photo = photo;
     if (!_photo) return;
     self.coreDataPhoto = nil;
+        
+    if (self.imageView.window) [self loadPhoto];
     
-    
-    if (self.imageView.window) [self loadPhoto];        
+    self.vacations = [VacationHelper getVacations];
         
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *recents = [[defaults objectForKey:RECENTS_PHOTOS_KEY] 
@@ -296,6 +333,41 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView 
+ numberOfRowsInSection:(NSInteger)section {    
+    return [self.vacations count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *CellIdentifier = @"Visit Vacations Cell";    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];    
+    if (!cell)        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                      reuseIdentifier:CellIdentifier];
+    cell.textLabel.text = [self.vacations objectAtIndex:indexPath.row];    
+    return cell;    
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    VacationHelper *vh = [VacationHelper sharedVacation:
+                          [self.vacations objectAtIndex:indexPath.row]];
+    [VacationHelper openVacation:vh.vacation usingBlock:^(BOOL success) {
+        [Photo photoFromFlickrInfo:self.photo 
+            inManagedObjectContext:vh.database.managedObjectContext];
+        [self.navigationController popViewControllerAnimated:YES];
+        [self.popoverController dismissPopoverAnimated:YES];
+        self.popoverController = nil;
+        self.visitButton.title = @"Unvisit";
+        self.visitButton.enabled = YES;
+    }];            
 }
 
 @end

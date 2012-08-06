@@ -9,14 +9,18 @@
 #import "VacationsTableViewController.h"
 #import "VacationTableViewController.h"
 #import "VacationHelper.h"
+#import "AddVacationViewController.h"
 
-@interface VacationsTableViewController ()
+@interface VacationsTableViewController () <AddVacationViewControllerDelegate>
+
+@property (nonatomic, strong) UIPopoverController *popoverController; 
 
 @end
 
 @implementation VacationsTableViewController
 
 @synthesize vacations = _vacations;
+@synthesize popoverController;
 
 #pragma mark - View lifecycle
 
@@ -25,6 +29,7 @@
     [super viewWillAppear:animated];
     //[VacationHelper createTestDatabase];
     self.vacations = [VacationHelper getVacations];
+    [self.tableView reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -39,6 +44,26 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];        
         [segue.destinationViewController setVacation:[self.vacations objectAtIndex:indexPath.row]];        
     }
+    if ([segue.identifier isEqualToString:@"Add Vacation"]) {
+        if ([segue isKindOfClass:[UIStoryboardPopoverSegue class]]) {
+            UIStoryboardPopoverSegue *popoverSegue = (UIStoryboardPopoverSegue *) segue;
+            [self.popoverController dismissPopoverAnimated:YES];
+            self.popoverController = popoverSegue.popoverController;
+        }
+        [segue.destinationViewController setDelegate:self];
+    }
+}
+
+#pragma mark - AddVacation delegate
+
+- (void)addVacationViewController:(AddVacationViewController *)sender 
+                    addedVacation:(NSString *)vacation
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.popoverController dismissPopoverAnimated:YES];
+    self.popoverController = nil;
+    self.vacations = [VacationHelper getVacations];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
