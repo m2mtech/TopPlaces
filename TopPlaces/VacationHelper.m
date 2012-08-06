@@ -111,6 +111,7 @@
 + (void)openVacation:(NSString *)vacationName usingBlock:(void (^)(BOOL))block
 {
     VacationHelper *vh = [VacationHelper sharedVacation:vacationName];
+    if (!vacationName && !vh.vacation) vh.vacation = DEFAULT_VACATION_NAME;
     if (![vh.fileManager fileExistsAtPath:[vh.database.fileURL path]]) {
         [vh.database saveToURL:vh.database.fileURL 
               forSaveOperation:UIDocumentSaveForCreating 

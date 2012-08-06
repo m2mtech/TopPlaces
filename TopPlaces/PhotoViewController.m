@@ -10,6 +10,8 @@
 #import "FlickrFetcher.h"
 #import "FlickrData.h"
 #import "FlickrCache.h"
+#import "VacationHelper.h"
+#import "Photo+Flickr.h"
 
 @interface PhotoViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
 
@@ -18,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *toolbarTitle;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *visitButton;
 
 @end
 
@@ -31,6 +34,80 @@
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 @synthesize photo = _photo;
 @synthesize coreDataPhoto = _coreDataPhoto;
+@synthesize visitButton = _visitButton;
+
+- (void)displayVisitButtonForPhotoID:(NSString *)photoID {
+    VacationHelper *vh = [VacationHelper sharedVacation:nil];
+    [VacationHelper openVacation:vh.vacation usingBlock:^(BOOL success) {
+        if ([Photo exisitingPhotoWithID:photoID 
+                inManagedObjectContext:vh.database.managedObjectContext]) {
+            self.visitButton.title = @"Unvisit";
+        } else {
+            self.visitButton.title = @"Visit";
+        }
+    }];
+    
+    if (self.splitViewController) {
+        NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+        [toolbarItems addObject:self.visitButton];
+        self.toolbar.items = toolbarItems;                
+    } else {
+        self.navigationItem.rightBarButtonItem = self.visitButton;
+    }
+}
+
+- (void)hideVisitButton {
+    if (self.splitViewController) {
+        NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+        [toolbarItems removeObject:self.visitButton];
+        self.toolbar.items = toolbarItems;                        
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }            
+}
+
+- (UIBarButtonItem *)visitButton
+{
+    if (!_visitButton) {
+        _visitButton = [[UIBarButtonItem alloc] initWithTitle:@"Visit" style:UIBarButtonItemStyleBordered target:self action:@selector(visitButtonPressed:)];
+    }
+    return _visitButton;
+}
+
+- (IBAction)visitButtonPressed:(id)sender
+{
+    VacationHelper *vh = [VacationHelper sharedVacation:nil];
+    if (self.coreDataPhoto) {
+        if (self.splitViewController) {
+            self.imageView.alpha = 0.5;
+            [self hideVisitButton];            
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        [Photo removePhoto:self.coreDataPhoto];
+        [vh.database saveToURL:vh.database.fileURL 
+              forSaveOperation:UIDocumentSaveForOverwriting 
+             completionHandler:NULL];
+    } 
+    if (self.photo) {
+        if ([self.visitButton.title isEqualToString:@"Visit"]) {
+            self.visitButton.title = @"Unvisit";
+            [VacationHelper openVacation:vh.vacation usingBlock:^(BOOL success) {
+                [Photo photoFromFlickrInfo:self.photo 
+                    inManagedObjectContext:vh.database.managedObjectContext];
+            }];            
+        } else {
+            self.visitButton.title = @"Visit";
+            [VacationHelper openVacation:vh.vacation usingBlock:^(BOOL success) {
+                [Photo removePhotoWithID:[self.photo objectForKey:FLICKR_PHOTO_ID] 
+                  inManagedObjectContext:vh.database.managedObjectContext];
+            }];
+        }
+        [vh.database saveToURL:vh.database.fileURL 
+              forSaveOperation:UIDocumentSaveForOverwriting 
+             completionHandler:NULL];
+    }
+}
 
 - (void)loadPhoto
 {
@@ -47,6 +124,7 @@
     self.navigationItem.title = title;
     self.toolbarTitle.title = title;
     if (self.imageView.image) self.imageView.alpha = 0.5;
+    [self hideVisitButton];
     if (self.photo || self.coreDataPhoto) [self.spinner startAnimating];
 
     dispatch_queue_t queue = dispatch_queue_create("Flickr Downloader", NULL);
@@ -83,6 +161,7 @@
             if (wScale > hScale) self.scrollView.zoomScale = wScale;
             else self.scrollView.zoomScale = hScale;
             [self.spinner stopAnimating];
+            [self displayVisitButtonForPhotoID:photoID];
             [self.imageView setNeedsDisplay];
         });
     });
