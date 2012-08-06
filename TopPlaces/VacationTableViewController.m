@@ -34,6 +34,9 @@
     if ([segue.identifier isEqualToString:@"Show Itinerary"]) {
         [segue.destinationViewController setVacation:self.vacation];        
     }
+    if ([segue.identifier isEqualToString:@"Show Tags"]) {
+        [segue.destinationViewController setVacation:self.vacation];        
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

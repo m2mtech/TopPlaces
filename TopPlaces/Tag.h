@@ -1,5 +1,5 @@
 //
-//  Place.h
+//  Tag.h
 //  TopPlaces
 //
 //  Created by Martin Mandl on 06.08.12.
@@ -11,14 +11,14 @@
 
 @class Photo;
 
-@interface Place : NSManagedObject
+@interface Tag : NSManagedObject
 
-@property (nonatomic, retain) NSDate * firstVisited;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * count;
 @property (nonatomic, retain) NSSet *photos;
 @end
 
-@interface Place (CoreDataGeneratedAccessors)
+@interface Tag (CoreDataGeneratedAccessors)
 
 - (void)addPhotosObject:(Photo *)value;
 - (void)removePhotosObject:(Photo *)value;

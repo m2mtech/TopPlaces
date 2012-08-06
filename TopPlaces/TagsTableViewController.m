@@ -1,21 +1,20 @@
 //
-//  ItineraryTableViewController.m
+//  TagsTableViewController.m
 //  TopPlaces
 //
-//  Created by Martin Mandl on 02.08.12.
+//  Created by Martin Mandl on 06.08.12.
 //  Copyright (c) 2012 m2m. All rights reserved.
 //
 
-#import "ItineraryTableViewController.h"
+#import "TagsTableViewController.h"
 #import "VacationHelper.h"
-#import "Place.h"
-#import "FlickrData.h"
+#import "Tag.h"
 
-@interface ItineraryTableViewController ()
+@interface TagsTableViewController ()
 
 @end
 
-@implementation ItineraryTableViewController
+@implementation TagsTableViewController
 
 @synthesize vacation = _vacation;
 
@@ -23,21 +22,21 @@
 {
     if (vacation == _vacation) return;
     _vacation = vacation;
-    self.title = [@"Itinerary of " stringByAppendingString:vacation];
+    self.title = [@"Tags of " stringByAppendingString:vacation];
 }
 
 - (void)setupFetchedResultsController
 {
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Tag"];
     request.sortDescriptors = [NSArray arrayWithObject:
-                               [NSSortDescriptor sortDescriptorWithKey:@"firstVisited" 
-                                                             ascending:YES]];
+                               [NSSortDescriptor sortDescriptorWithKey:@"count" 
+                                                             ascending:NO]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] 
                                      initWithFetchRequest:request 
                                      managedObjectContext:[VacationHelper 
-                                      sharedVacation:self.vacation].database.managedObjectContext 
-                                       sectionNameKeyPath:nil 
-                                                cacheName:nil];
+                                                           sharedVacation:self.vacation].database.managedObjectContext 
+                                     sectionNameKeyPath:nil 
+                                     cacheName:nil];
 }
 
 #pragma mark - View lifecycle
@@ -48,8 +47,9 @@
     if ([segue.identifier isEqualToString:@"Show Vacation Photos"]) {
         [segue.destinationViewController setVacation:self.vacation];        
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        [segue.destinationViewController performSelector:@selector(setPlace:) withObject:place];
+        Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [segue.destinationViewController performSelector:@selector(setTag:)
+                                              withObject:tag];
     }
 }
 
@@ -65,7 +65,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Itinerary Cell";
+    static NSString *CellIdentifier = @"Tags Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -73,9 +73,9 @@
                                       reuseIdentifier:CellIdentifier];
     }
     
-    Place *place = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [FlickrData titleOfPlace:place];
-    cell.detailTextLabel.text = [FlickrData subtitleOfPlace:place];;
+    Tag *tag = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [tag.name capitalizedString];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d photos", [tag.photos count]];
     return cell;
 }
 

@@ -93,7 +93,9 @@
 {    
     if (_photo == photo) return;
     _photo = photo;
+    if (!_photo) return;
     self.coreDataPhoto = nil;
+    
     
     if (self.imageView.window) [self loadPhoto];        
         
@@ -117,6 +119,7 @@
 {
     if (_coreDataPhoto == coreDataPhoto) return;
     _coreDataPhoto = coreDataPhoto;
+    if (!_coreDataPhoto) return;
     self.photo = nil;
     
     if (self.imageView.window) [self loadPhoto];    

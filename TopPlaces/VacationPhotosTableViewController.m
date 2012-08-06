@@ -19,12 +19,24 @@
 
 @synthesize vacation = _vacation;
 @synthesize place = _place;
+@synthesize tag = _tag;
 
 - (void)setPlace:(Place *)place
 {
     if (_place == place) return;
     _place = place;
+    if (!_place) return;
     self.title = [FlickrData titleOfPlace:place];
+    self.tag = nil;
+}
+
+- (void)setTag:(Tag *)tag
+{
+    if (_tag == tag) return;
+    _tag = tag;
+    if (!_tag) return;
+    self.title = tag.name;
+    self.place = nil;
 }
 
 - (void)setupFetchedResultsController
@@ -34,11 +46,19 @@
                                [NSSortDescriptor sortDescriptorWithKey:@"title" 
                                                              ascending:YES 
                                                               selector:
-                                @selector(localizedCaseInsensitiveCompare:)]];    
-    request.predicate = [NSPredicate predicateWithFormat:@"place.name = %@", self.place.name];    
+                                @selector(localizedCaseInsensitiveCompare:)]];
+    NSManagedObjectContext *context;
+    if (self.place) {
+        request.predicate = [NSPredicate predicateWithFormat:@"place.name = %@", self.place.name];    
+        context = self.place.managedObjectContext;
+    }
+    if (self.tag) {
+        request.predicate = [NSPredicate predicateWithFormat:@"%@ in tags", self.tag];    
+        context = self.tag.managedObjectContext;
+    }
     self.fetchedResultsController = [[NSFetchedResultsController alloc] 
                                      initWithFetchRequest:request 
-                                     managedObjectContext:self.place.managedObjectContext 
+                                     managedObjectContext:context
                                        sectionNameKeyPath:nil 
                                                 cacheName:nil];
 }

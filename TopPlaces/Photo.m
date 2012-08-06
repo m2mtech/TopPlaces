@@ -2,12 +2,13 @@
 //  Photo.m
 //  TopPlaces
 //
-//  Created by Martin Mandl on 03.08.12.
+//  Created by Martin Mandl on 06.08.12.
 //  Copyright (c) 2012 m2m. All rights reserved.
 //
 
 #import "Photo.h"
 #import "Place.h"
+#import "Tag.h"
 
 
 @implementation Photo
@@ -17,5 +18,6 @@
 @dynamic title;
 @dynamic unique;
 @dynamic place;
+@dynamic tags;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "Photo+Flickr.h"
 #import "Place+Flickr.h"
+#import "Tag+Flickr.h"
 #import "FlickrFetcher.h"
 
 @implementation Photo (Flickr)
@@ -37,6 +38,8 @@
         photo.unique = [flickrInfo objectForKey:FLICKR_PHOTO_ID];
         photo.place = [Place placeFromFlickrInfo:flickrInfo 
                           inManagedObjectContext:context];
+        photo.tags = [Tag tagsFromFlickrInfo:flickrInfo 
+                      inManagedObjectContext:context];
     } else {
         photo = [matches lastObject];
     }
