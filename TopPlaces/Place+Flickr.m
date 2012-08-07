@@ -8,6 +8,7 @@
 
 #import "Place+Flickr.h"
 #import "FlickrFetcher.h"
+#import "Itinerary+Single.h"
 
 @implementation Place (Flickr)
 
@@ -30,9 +31,12 @@
         place = [NSEntityDescription insertNewObjectForEntityForName:@"Place" 
                                               inManagedObjectContext:context];
         place.name = name;
-        place.firstVisited = [NSDate date];        
+        place.firstVisited = [NSDate date];
+        place.itinerary = [Itinerary singleItineraryInManagedObjectContext:context];
     } else {
         place = [matches lastObject];
+        if (!place.itinerary) 
+            place.itinerary = [Itinerary singleItineraryInManagedObjectContext:context];
     }    
     return place;
 }

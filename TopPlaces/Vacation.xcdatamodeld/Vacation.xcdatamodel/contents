@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Itinerary" representedClassName="Itinerary" syncable="YES">
+        <relationship name="places" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Place" inverseName="itinerary" inverseEntity="Place" syncable="YES"/>
+    </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
@@ -11,6 +14,7 @@
     <entity name="Place" representedClassName="Place" syncable="YES">
         <attribute name="firstVisited" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="itinerary" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Itinerary" inverseName="places" inverseEntity="Itinerary" syncable="YES"/>
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="place" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <entity name="Tag" representedClassName="Tag" syncable="YES">
@@ -19,8 +23,9 @@
         <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="tags" inverseEntity="Photo" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Photo" positionX="-333" positionY="36" width="128" height="120"/>
-        <element name="Place" positionX="99" positionY="249" width="128" height="75"/>
-        <element name="Tag" positionX="52" positionY="-9" width="128" height="90"/>
+        <element name="Photo" positionX="-209" positionY="231" width="128" height="120"/>
+        <element name="Place" positionX="36" positionY="207" width="128" height="105"/>
+        <element name="Tag" positionX="79" positionY="378" width="128" height="90"/>
+        <element name="Itinerary" positionX="295" positionY="216" width="128" height="60"/>
     </elements>
 </model>

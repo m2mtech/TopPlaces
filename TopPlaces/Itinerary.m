@@ -1,19 +1,17 @@
 //
-//  Tag.m
+//  Itinerary.m
 //  TopPlaces
 //
 //  Created by Martin Mandl on 07.08.12.
 //  Copyright (c) 2012 m2m. All rights reserved.
 //
 
-#import "Tag.h"
-#import "Photo.h"
+#import "Itinerary.h"
+#import "Place.h"
 
 
-@implementation Tag
+@implementation Itinerary
 
-@dynamic count;
-@dynamic name;
-@dynamic photos;
+@dynamic places;
 
 @end

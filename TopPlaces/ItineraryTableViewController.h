@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
+#import "Itinerary.h"
 
-@interface ItineraryTableViewController : CoreDataTableViewController
+@interface ItineraryTableViewController : UITableViewController //CoreDataTableViewController
 
 @property (nonatomic, strong) NSString *vacation;
+@property (nonatomic, strong) Itinerary *itinerary;
 
 @end
